@@ -6,9 +6,12 @@ class E4form extends Component {
     afmEmployer: '',
     ameEmployer: '',
     afmEmployee: '',
-    date: '',
-    hourRange: '',
-    reason: '',
+    dateTimeReason: []
+  }
+  addDateTimeReason = dateTimeReason => {
+    this.setState({
+      dateTimeReason: [...this.state.dateTimeReason, dateTimeReason]
+    })
   }
   handleChange = name => event => {
     this.setState({
@@ -53,7 +56,7 @@ class E4form extends Component {
           variant="outlined" 
           type="Submit"
         >
-          Submit
+          ΥΠΟΒΟΛΗ
         </Button>
       </form>
     )
