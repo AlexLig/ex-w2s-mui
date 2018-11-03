@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-import './App.css';
 import E4form from './components/E4form';
 
 class App extends Component {
