@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import { TextField, withStyles } from '@material-ui/core'
 import DatePicker from 'material-ui-pickers/DatePicker'
 import TimePicker from 'material-ui-pickers/TimePicker'
-import AvTimer from '@material-ui/icons/'
+import AccessTime from '@material-ui/icons/AccessTimeRounded'
+import { Button } from '@material-ui/core'
 
 class DateTimeForm extends Component {
-  classes = this.props
   state = {
     selectedDate: new Date(),
     startTime: new Date(),
-    endTime:''
+    endTime: new Date(),
   }
 
   handleDateChange = date => {
@@ -17,53 +16,63 @@ class DateTimeForm extends Component {
   }
 
   handleStartTimeChange = startTime => {
-    this.setState({startTime: startTime})
+    this.setState({ startTime: startTime })
+  }
+
+  handleEndTimeChange = endTime => {
+    this.setState({ endTime: endTime })
   }
 
   render() {
-    const {selectedDate, startTime} = this.state
+    const { selectedDate, startTime, endTime } = this.state
 
     return (
-      <form className={this.classes.container}>
-      <div className="picker" style={{marginTop:'10px'}}>
-        <DatePicker
-          showTodayButton
-          autoOk
-          // keyboard
-          variant="outlined"
-          label="Ημέρα"
-          value={selectedDate}
-          onChange={this.handleDateChange}
-          // animateYearScrolling
-        />
+      <form onSubmit={this.props.onSubmit}>
+        <div className="picker" style={{ marginTop: '10px' }}>
+          <DatePicker
+            showTodayButton
+            todayLabel="σημερα"
+            cancelLabel="ακυρωση"
+            autoOk
+            // keyboard
+            variant="outlined"
+            label="Ημέρα"
+            value={selectedDate}
+            onChange={this.handleDateChange}
+            // animateYearScrolling
+          />
         </div>
         <br />
         <div className="picker">
-        <TimePicker
-          autoOk
-          showTodayButton
-          variant="outlined"
-          ampm={false}
-          label="Έναρξη"
-          value={startTime}
-          onChange={this.handleStartTimeChange}
-        >
-          <AvTimer/>
-        </TimePicker>
+          <TimePicker
+            autoOk
+            keyboard
+            keyboardIcon={<AccessTime />}
+            todayLabel="τωρα"
+            cancelLabel="ακυρωση"
+            showTodayButton
+            variant="outlined"
+            ampm={false}
+            label="Έναρξη"
+            value={startTime}
+            onChange={this.handleStartTimeChange}
+          />
+          <TimePicker
+            autoOk
+            keyboard
+            keyboardIcon={<AccessTime />}
+            todayLabel="τωρα"
+            showTodayButton
+            variant="outlined"
+            ampm={false}
+            label="Λήξη"
+            value={endTime}
+            onChange={this.handleEndTimeChange}
+          />
+          <Button variant="raised" color="primary" type="submit">
+            Προσθηκη
+          </Button>
         </div>
-        <TextField
-          id="time"
-          label="Ώρα"
-          type="time"
-          // defaultValue=""
-          className={this.classes.time}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            step: 300,
-          }}
-        />
       </form>
     )
   }
@@ -86,4 +95,4 @@ const styles = theme => ({
   },
 })
 
-export default withStyles(styles)(DateTimeForm)
+export default DateTimeForm
