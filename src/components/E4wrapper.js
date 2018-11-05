@@ -41,7 +41,7 @@ class E4wrapper extends Component {
         <E4form onChange={this.handleChange} e4={this.state.e4} />
         <br />
         {/* <DateTimeReason onChange={} onAddDate={} /> */}
-        <DateTimeReason onAddDate={this.addDateTimeReason} />
+        <DateTimeReason onAddDateTimeReason={this.addDateTimeReason} />
         <br />
         <Displayer 
           erganiReadable={this.state.erganiReadable} 
