@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core'
-import E4parser from './E4parser'
+import E4parser from './Displayer'
 
 class E4form extends Component {
   state = {
@@ -53,7 +53,7 @@ class E4form extends Component {
           variant="outlined"
         />
         <br/>
-        <E4parser form={this.state}/>
+        <E4parser/>
 
         <br/>
         <Button 
