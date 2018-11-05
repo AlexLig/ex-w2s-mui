@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import E4form from './components/E4form';
+import E4wrapper from './components/E4wrapper';
 
 class App extends Component {
   render() {
     return (
-      <E4form/> 
+      <E4wrapper/> 
     )
   }
 }
