@@ -3,6 +3,7 @@ import DatePicker from 'material-ui-pickers/DatePicker'
 import TimePicker from 'material-ui-pickers/TimePicker'
 import AccessTime from '@material-ui/icons/AccessTimeRounded'
 import { Button } from '@material-ui/core'
+import PropTypes from 'prop-types'
 
 class DateTimeForm extends Component {
   state = {
@@ -13,6 +14,7 @@ class DateTimeForm extends Component {
 
   handleDateChange = date => {
     this.setState({ selectedDate: date })
+    this.props.onChange()
   }
 
   handleStartTimeChange = startTime => {
@@ -77,7 +79,10 @@ class DateTimeForm extends Component {
     )
   }
 }
-
+DateTimeForm.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+}
 const styles = theme => ({
   container: {
     display: 'flex',
