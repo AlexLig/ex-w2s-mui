@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { TextField } from '@material-ui/core'
 
-export default props => {
+const Displayer = props => {
   const { erganiReadable, erganiCode } = props
   return (
     <Fragment>
@@ -27,3 +27,4 @@ export default props => {
     </Fragment>
   )
 }
+export default Displayer

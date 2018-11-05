@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
+import { Button } from '@material-ui/core'
 import Displayer from './Displayer'
 import E4form from './E4form'
-import { Button } from '@material-ui/core'
+import DateTimeReason from './DateTimeReason';
 
 class E4wrapper extends Component {
   state = {
@@ -40,6 +41,7 @@ class E4wrapper extends Component {
         <E4form onChange={this.handleChange} e4={this.state.e4} />
         <br />
         {/* <DateTimeReason onChange={} onAddDate={} /> */}
+        <DateTimeReason onAddDate={this.addDateTimeReason} />
         <br />
         <Displayer 
           erganiReadable={this.state.erganiReadable} 
