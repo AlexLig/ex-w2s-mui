@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import { TextField } from '@material-ui/core'
 
-const E4form = props => {
+const VatNumbers = props => {
   const {
     onChange,
-    e4: { afmEmployer, ameEmployer, afmEmployee },
+    form: { afmEmployer, ameEmployer, afmEmployee },
   } = props
 
   return (
@@ -39,4 +39,4 @@ const E4form = props => {
   )
 }
 
-export default E4form
+export default VatNumbers

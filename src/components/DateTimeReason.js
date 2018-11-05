@@ -18,10 +18,11 @@ class DateTimeReason extends Component {
   }
   handleSubmit = event => {
     this.props.onAddDateTimeReason(this.state)
+    event.preventDefault()
   }
   render() {
     return (
-      <Fragment>
+      <form onSubmit={this.handleSubmit}>
         <TextField
           label="date"
           value={this.state.date}
@@ -51,10 +52,10 @@ class DateTimeReason extends Component {
           fullWidth
         />
         
-        <Button variant="outlined" onClick={this.handleSubmit}>
+        <Button variant="outlined" type="submit">
           ΥΠΟΒΟΛΗ
         </Button>
-      </Fragment>
+      </form>
     )
   }
 }
