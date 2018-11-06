@@ -18,7 +18,7 @@ class E4 extends Component {
       finish:'',
       isWork: true
     },
-    dateTimeReason: []
+    dateTimeReason: [] // TODO: reset DTR array on afm change!
   }
   addDateTimeReason = () => {
     const {date, start, finish , isWork} = this.state.form
