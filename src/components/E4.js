@@ -13,15 +13,17 @@ class E4 extends Component {
       afmEmployer: '',
       ameEmployer: '',
       afmEmployee: '',
-      dateTimeReason: [],
+      date:'',
+      start:'',
+      finish:'',
+      isWork: true
     },
+    dateTimeReason: []
   }
-  addDateTimeReason = dateTimeReason => {
+  addDateTimeReason = () => {
+    const {date, start, finish , isWork} = this.state.form
     this.setState({
-      form: {
-        ...this.state.form,
-        dateTimeReason: [...this.state.form.dateTimeReason, dateTimeReason],
-      },
+      dateTimeReason: [...this.state.dateTimeReason,{date: date, start: start, finish: finish, isWork: isWork}]
     })
   }
   handleChange = name => ({ target: { value } }) => {
@@ -29,7 +31,6 @@ class E4 extends Component {
       form: {
         ...this.state.form,
         [name]: value,
-        dateTimeReason: [],
       },
     })
   }
@@ -43,7 +44,7 @@ class E4 extends Component {
         <VatNumbers onChange={this.handleChange} form={this.state.form} />
         <br />
 
-        <DateTimeReason onAddDateTimeReason={this.addDateTimeReason} />
+        <DateTimeReason onChange={this.handleChange} form={this.state.form} onAddDateTimeReason= {this.addDateTimeReason} />
         <br />
         <DateTimeForm />
         <br />
