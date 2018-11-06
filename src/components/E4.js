@@ -7,23 +7,47 @@ import DateTimeForm from './DateTimeForm'
 
 const parse = form => form.afmEmployee + ' ' + form.afmEmployer
 
+const defaultDTR = {
+  date: '',
+  start: '',
+  finish: '',
+  isWork: true,
+}
+
 class E4 extends Component {
   state = {
     form: {
       afmEmployer: '',
       ameEmployer: '',
       afmEmployee: '',
-      date:'',
-      start:'',
-      finish:'',
-      isWork: true
+      date: '',
+      start: '',
+      finish: '',
+      isWork: true,
     },
-    dateTimeReason: [] // TODO: reset DTR array on afm change!
+    dateTimeReason: [], // TODO: reset DTR array on afm change!
   }
   addDateTimeReason = () => {
-    const {date, start, finish , isWork} = this.state.form
+    const { date, start, finish, isWork } = this.state.form
     this.setState({
-      dateTimeReason: [...this.state.dateTimeReason,{date: date, start: start, finish: finish, isWork: isWork}]
+      // Don't add if empty!
+      dateTimeReason: [
+        ...this.state.dateTimeReason,
+        {
+          date: date,
+          start: start,
+          finish: finish,
+          isWork: isWork,
+        },
+      ],
+
+      form: {
+        ...this.state.form,
+        date: '',
+        start: '',
+        finish: '',
+        isWork: true,
+      },
     })
   }
   handleChange = name => ({ target: { value } }) => {
@@ -44,7 +68,11 @@ class E4 extends Component {
         <VatNumbers onChange={this.handleChange} form={this.state.form} />
         <br />
 
-        <DateTimeReason onChange={this.handleChange} form={this.state.form} onAddDateTimeReason= {this.addDateTimeReason} />
+        <DateTimeReason
+          onChange={this.handleChange}
+          form={this.state.form}
+          onAddDateTimeReason={this.addDateTimeReason}
+        />
         <br />
         <DateTimeForm />
         <br />

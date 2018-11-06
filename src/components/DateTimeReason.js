@@ -10,28 +10,28 @@ const DateTimeReason = props => {
     <Fragment>
       <TextField
         label="date"
-        value={props.date}
+        value={props.form.date}
         onChange={onChange('date')}
         margin="normal"
         fullWidth
       />
       <TextField
         label="start"
-        value={props.start}
+        value={props.form.start}
         onChange={onChange('start')}
         margin="normal"
         fullWidth
       />
       <TextField
         label="finish"
-        value={props.finish}
+        value={props.form.finish}
         onChange={onChange('finish')}
         margin="normal"
         fullWidth
       />
       <TextField
         label="isWork"
-        value={props.isWork}
+        value={props.form.isWork}
         onChange={onChange('isWork')}
         margin="normal"
         fullWidth
