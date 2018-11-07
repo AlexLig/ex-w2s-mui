@@ -33,11 +33,11 @@ class E4 extends Component {
       isWork: true,
     },
     dateTimeReasonArr: [], // TODO: reset DTR array on afm change!
-    isDisabled: {
-      afmEmployer: false,
-      ameEmployer: false,
-      afmEmployee: false,
-    },
+    // isDisabled: {
+    //   afmEmployer: false,
+    //   ameEmployer: false,
+    //   afmEmployee: false,
+    // },
     snackbar: {
       isOpen: false,
     },
