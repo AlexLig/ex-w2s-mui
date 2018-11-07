@@ -36,10 +36,10 @@ const DateTimeReason = props => {
         value={props.form.isWork}
         onChange={onChange('isWork')}
         margin="normal"
-        fullWidth
+        // fullWidth
         SelectProps={{
             MenuProps: {
-              className: classes.menu,
+              // className: classes.menu,
               // style: {width: 200}
             },      
         }}

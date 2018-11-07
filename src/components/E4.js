@@ -32,14 +32,22 @@ class E4 extends Component {
       finish: Date.now(),
       isWork: true,
     },
-    dateTimeReason: [], // TODO: reset DTR array on afm change!
+    dateTimeReasonArr: [], // TODO: reset DTR array on afm change!
+    isDisabled: {
+      afmEmployer: false,
+      ameEmployer: false,
+      afmEmployee: false,
+    },
+    snackbar: {
+      isOpen: false,
+    },
   }
   addDateTimeReason = () => {
     const { date, start, finish, isWork } = this.state.form
     this.setState({
       // Don't add if empty!
-      dateTimeReason: [
-        ...this.state.dateTimeReason,
+      dateTimeReasonArr: [
+        ...this.state.dateTimeReasonArr,
         {
           date: date,
           start: start,
@@ -53,7 +61,7 @@ class E4 extends Component {
         date: 'TEST',
         start: 'TEST',
         finish: 'Test',
-        isWork: isWork,
+        isWork: !isWork,
       },
     })
   }
@@ -89,10 +97,9 @@ class E4 extends Component {
         <br />
         <DateTimeForm />
         <br />
-        {this.state.dateTimeReason.map(dtr => (
+        {this.state.dateTimeReasonArr.map(dtr => (
           <Chip
             avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
-            // icon='A'
             className={classes.chip}
             label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
             clickable
