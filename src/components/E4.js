@@ -9,16 +9,16 @@ const parse = form => form.afmEmployee + ' ' + form.afmEmployer
 
 const styles = theme => ({
   chip: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
   },
   menu: {
-    width: 200
-  }
+    width: 200,
+  },
 })
 
 const reasons = [
-  {key: 'Απασχόληση', value: true},
-  {key: 'Διακοπές', value: false}
+  { key: 'Απασχόληση', value: true },
+  { key: 'Διακοπές', value: false },
 ]
 
 class E4 extends Component {
@@ -89,16 +89,19 @@ class E4 extends Component {
         <br />
         <DateTimeForm />
         <br />
-        {this.state.dateTimeReason.map(dtr => <Chip
-          avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
-          className={classes.chip}
-          label={dtr.date + ' ' + dtr.start + ' ' + dtr.finish}
-          clickable
-          color="primary"
-          variant="outlined"
-          onDelete={this.handleChipDelete}
-          onClick={this.handleChipClick}
-        />)}
+        {this.state.dateTimeReason.map(dtr => (
+          <Chip
+            avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
+            // icon='A'
+            className={classes.chip}
+            label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
+            clickable
+            color={dtr.isWork ? "primary" : "secondary"}
+            variant="outlined"
+            onDelete={this.handleChipDelete}
+            onClick={this.handleChipClick}
+          />
+        ))}
         <br />
 
         <Displayer erganiCode={parse(this.state.form)} />
