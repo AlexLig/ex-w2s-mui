@@ -1,10 +1,10 @@
 import React, {Fragment} from 'react'
 
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField, MenuItem } from '@material-ui/core'
 
 const DateTimeReason = props => {
 
-  const { onChange, onAddDateTimeReason } = props
+  const { reasons, classes, onChange, onAddDateTimeReason } = props
 
   return (
     <Fragment>
@@ -30,12 +30,26 @@ const DateTimeReason = props => {
         fullWidth
       />
       <TextField
-        label="isWork"
+        select
+        label="Αιτιολογία"
+        helperText="Επιλέξτε αιτιολογία"
         value={props.form.isWork}
         onChange={onChange('isWork')}
         margin="normal"
         fullWidth
-      />
+        SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+              // style: {width: 200}
+            },      
+        }}
+      >
+      {reasons.map(option => (
+        <MenuItem key={option.key} value={option.value} >
+          {option.key}
+        </MenuItem>
+      ))}
+      </TextField>
 
       <Button variant="outlined" onClick={onAddDateTimeReason}>
         addDate
