@@ -4,8 +4,9 @@ import { TextField } from '@material-ui/core'
 const VatNumbers = props => {
   const {
     onChange,
+    onBlur,
     form: { afmEmployer, ameEmployer, afmEmployee },
-    errors: {afmEmployerError, ameEmployerError, afmEmployeeError}
+    errors
   } = props
   
   return (
@@ -15,7 +16,8 @@ const VatNumbers = props => {
         label="ΑΦΜ Εργοδότη"
         value={afmEmployer}
         onChange={onChange('afmEmployer')}
-        error = {afmEmployerError}
+        onBlur= {onBlur('afmEmployer')}
+        error={errors.afmEmployer}
         margin="normal"
         variant="outlined"
       />
@@ -25,7 +27,8 @@ const VatNumbers = props => {
         label="ΑΜΕ Εργοδότη"
         value={ameEmployer}
         onChange={onChange('ameEmployer')}
-        error = {ameEmployerError}
+        onBlur= {onBlur('ameEmployer')}
+        error={errors.ameEmployer}
         margin="normal"
         variant="outlined"
       />
@@ -35,7 +38,8 @@ const VatNumbers = props => {
         label="ΑΦΜ Εργαζομένου"
         value={afmEmployee}
         onChange={onChange('afmEmployee')}
-        error = {afmEmployeeError}
+        onBlur = {onBlur('afmEmployee')}
+        error={errors.afmEmployee}
         margin="normal"
         variant="outlined"
       />
