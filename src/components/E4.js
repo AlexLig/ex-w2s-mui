@@ -6,7 +6,14 @@ import DateTimeReason from './DateTimeReason'
 import DateTimeForm from './DateTimeForm'
 
 const parse = form => form.afmEmployee + ' ' + form.afmEmployer
-
+const validate = (form) => {
+  const { afmEmployer, ameEmployer, afmEmployee } = form
+  return {
+    afmEmployerError: afmEmployer.length !== 9 || isNaN(afmEmployer),
+    ameEmployerError: ameEmployer.length !== 10 || isNaN(ameEmployer),
+    afmEmployeeError: afmEmployee.length !== 9 || isNaN(afmEmployee),
+  }
+}
 class E4 extends Component {
   state = {
     form: {
@@ -39,9 +46,10 @@ class E4 extends Component {
     event.preventDefault()
   }
   render() {
+    const errors = validate(this.state.form)
     return (
       <form onClick={this.handleSubmit}>
-        <VatNumbers onChange={this.handleChange} form={this.state.form} />
+        <VatNumbers onChange={this.handleChange} form={this.state.form} errors={errors} />
         <br />
 
         <DateTimeReason onChange={this.handleChange} form={this.state.form} onAddDateTimeReason= {this.addDateTimeReason} />
