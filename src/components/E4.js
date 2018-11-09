@@ -44,7 +44,7 @@ class E4 extends Component {
       finish: '',
       isWork: true,
     },
-    dateTimeReason: [], 
+    dateTimeReason: [],
     lastDateTimeReason: [],
 
     isValid: {
@@ -84,12 +84,12 @@ class E4 extends Component {
     this.setState({
       isValid: {
         ...this.state.isValid,
-        [name]: isValidVnum(fieldValue, name)
-    },
-  })}
+        [name]: isValidVnum(fieldValue, name),
+      },
+    })
+  }
 
-
-  shoudDisable = name => {
+  shouldDisable = name => {
     this.validate(name)
     this.setState({
       isDisabled: {
@@ -105,18 +105,33 @@ class E4 extends Component {
         ...this.state.dateTimeReason,
         { date: date, start: start, finish: finish, isWork: isWork },
       ],
+      form: {
+        ...this.state.form,
+        date: 'TEST',
+        start: 'TEST',
+        finish: 'Test',
+        isWork: !isWork,
+      },
     })
   }
   handleChange = name => ({ target: { value } }) => {
-    this.setState(
-      {
+    if (name === 'isWork')
+      this.setState({
         form: {
           ...this.state.form,
-          [name]: value.trim(),
+          [name]: value,
         },
-      },
-      () => this.validate(name)
-    )
+      })
+    else
+      this.setState(
+        {
+          form: {
+            ...this.state.form,
+            [name]: value.trim(),
+          },
+        },
+        () => this.validate(name)
+      )
   }
   handleBlur = name => () => {
     this.setState(
@@ -126,7 +141,7 @@ class E4 extends Component {
           [name]: true,
         },
       },
-      () => this.shoudDisable(name)
+      () => this.shouldDisable(name)
     )
   }
   handleEdit = name => () => {
@@ -161,8 +176,6 @@ class E4 extends Component {
     })
   }
   handleChipDelete = (dtr, i) => () => {
-    const dtrArray = this.state.dateTimeReason
-
     this.setState(prevState => {
       const dtrArray = prevState.dateTimeReason
 
@@ -178,7 +191,10 @@ class E4 extends Component {
   }
   handleUndoChipDelete = () => {
     this.setState(prevState => ({
-      dateTimeReason: [...prevState.dateTimeReason, ...prevState.lastDateTimeReason],
+      dateTimeReason: [
+        ...prevState.dateTimeReason,
+        ...prevState.lastDateTimeReason,
+      ],
     }))
     this.handleSnackbarClose()
   }
