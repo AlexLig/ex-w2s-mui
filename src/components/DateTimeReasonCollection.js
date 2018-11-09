@@ -15,8 +15,8 @@ const DateTimeReasonCollection = props => {
     dtrArray,
     onChipClick,
     onChipDelete,
-    popover,
-    onPopoverClose,
+    popper,
+    onPopperClose,
     snackbar,
     onSnackbarClose,
     onUndoChipDelete,
@@ -25,8 +25,8 @@ const DateTimeReasonCollection = props => {
   return (
     <>
       <Popover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
+        open={popper.open}
+        anchorEl={popper.anchorEl}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -35,10 +35,10 @@ const DateTimeReasonCollection = props => {
           vertical: 'top',
           horizontal: 'left',
         }}
-        onClose={onPopoverClose}>
+        onClose={onPopperClose}>
         <Typography
           // className={classes.typography}
-          children={popover.content}
+          children={popper.content}
         />
       </Popover>
       {dtrArray.map((dtr, i) => (

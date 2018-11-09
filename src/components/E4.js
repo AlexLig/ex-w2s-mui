@@ -67,7 +67,7 @@ class E4 extends Component {
       open: false,
       message: null,
     },
-    popover: {
+    popper: {
       anchorEl: null,
       open: false,
       content: null,
@@ -168,7 +168,7 @@ class E4 extends Component {
   }
   handleChipClick = dtr => event => {
     this.setState({
-      popover: {
+      popper: {
         anchorEl: event.currentTarget,
         open: true,
         content: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
@@ -205,9 +205,9 @@ class E4 extends Component {
       snackbar: { ...prevState.snackbar, open: false },
     }))
   }
-  handlePopoverClose = () =>
+  handlePopperClose = () =>
     this.setState(prevState => ({
-      popover: { ...prevState.popover, open: false },
+      popper: { ...prevState.popper, open: false },
     }))
 
   render() {
@@ -242,8 +242,8 @@ class E4 extends Component {
             dtrArray={this.state.dateTimeReason}
             onChipClick={this.handleChipClick}
             onChipDelete={this.handleChipDelete}
-            popover={this.state.popover}
-            onPopoverClose={this.handlePopoverClose}
+            popper={this.state.popper}
+            onPopperClose={this.handlePopperClose}
             snackbar={this.state.snackbar}
             onSnackbarClose={this.handleSnackbarClose}
             onUndoChipDelete={this.handleUndoChipDelete}
