@@ -6,7 +6,10 @@ import {
   withStyles,
   Popover,
   Typography,
+  Snackbar,
+  IconButton,
 } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
 import Displayer from './Displayer'
 import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
@@ -49,7 +52,8 @@ class E4 extends Component {
     //   afmEmployee: false,
     // },
     snackbar: {
-      isOpen: false,
+      open: false,
+      message: null,
     },
     popover: {
       anchorEl: null,
@@ -101,11 +105,20 @@ class E4 extends Component {
       },
     })
   }
-  handleChipDelete = i => () => {
+  handleChipDelete = (dtr, i) => () => {
     const dtrArray = this.state.dateTimeReasonArr
     this.setState({
-      dateTimeReasonArr: dtrArray.filter(dtr => dtrArray.indexOf(dtr) !== i),
+      dateTimeReasonArr: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
+      snackbar: {
+        open: true,
+        message: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
+      },
     })
+  }
+  handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') return
+
+    this.setState({ snackbar: { ...this.state.snackbar, open: false } })
   }
 
   render() {
@@ -143,8 +156,7 @@ class E4 extends Component {
               })
             }
             children={
-              <Typography
-                className={classes.typography}>
+              <Typography className={classes.typography}>
                 {/* children={this.state.popover.content} */}
                 {this.state.popover.content}
               </Typography>
@@ -159,9 +171,33 @@ class E4 extends Component {
               color={dtr.isWork ? 'primary' : 'secondary'}
               variant="outlined"
               onClick={this.handleChipClick(dtr)}
-              onDelete={this.handleChipDelete(i)}
+              onDelete={this.handleChipDelete(dtr, i)}
             />
           ))}
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            open={this.state.snackbar.open}
+            autoHideDuration={4000}
+            message={
+              <span>Η καταχώρηση {this.state.snackbar.message} διαγράφηκε</span>
+            }
+            action={[
+              <Button
+                color="secondary"
+                size="small"
+                onClick={this.handleSnackbarClose}
+                children="ΑΝΑΙΡΕΣΗ"
+              />,
+              <IconButton
+                color="inherit"
+                onClick={this.handleSnackbarClose}
+                children={<CloseIcon />}
+              />,
+            ]}
+          />
         </div>
         <br />
 
