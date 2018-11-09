@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
-import {
-  Button,
-  Chip,
-  Avatar,
-  withStyles,
-  Popover,
-  Typography,
-  Snackbar,
-  IconButton,
-} from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+import { Button, withStyles } from '@material-ui/core'
 import Displayer from './Displayer'
 import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
 import DateTimeForm from './DateTimeForm'
+import DateTimeReasonCollection from './DateTimeReasonCollection'
 
 const parse = form => form.afmEmployee + ' ' + form.afmEmployer
 
@@ -75,7 +66,7 @@ class E4 extends Component {
           isWork: isWork,
         },
       ],
-
+      // lastDateTimeReason:[],
       form: {
         ...this.state.form,
         date: 'TEST',
@@ -113,7 +104,7 @@ class E4 extends Component {
       const dtrArray = prevState.dateTimeReason
 
       return {
-        lastDateTimeReason: [...dtrArray],
+        lastDateTimeReason: [dtr],
         dateTimeReason: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
         snackbar: {
           open: true,
@@ -124,7 +115,7 @@ class E4 extends Component {
   }
   handleUndoChipDelete = () => {
     this.setState(prevState => ({
-      dateTimeReason: [...prevState.lastDateTimeReason],
+      dateTimeReason: [...prevState.dateTimeReason, ...prevState.lastDateTimeReason],
     }))
     this.handleSnackbarClose()
   }
@@ -135,6 +126,10 @@ class E4 extends Component {
       snackbar: { ...prevState.snackbar, open: false },
     }))
   }
+  handlePopoverClose = () =>
+    this.setState(prevState => ({
+      popover: { ...prevState.popover, open: false },
+    }))
 
   render() {
     const classes = this.props
@@ -154,64 +149,15 @@ class E4 extends Component {
         <DateTimeForm />
         <br />
         <div className="chips-container">
-          <Popover
-            open={this.state.popover.open}
-            anchorEl={this.state.popover.anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            onClose={() =>
-              this.setState({
-                popover: { open: false, anchorEl: null, content: null },
-              })
-            }>
-            <Typography
-              className={classes.typography}
-              children={this.state.popover.content}
-            />
-          </Popover>
-          />
-          {this.state.dateTimeReason.map((dtr, i) => (
-            <Chip
-              avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
-              className={classes.chip}
-              label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
-              clickable
-              color={dtr.isWork ? 'primary' : 'secondary'}
-              variant="outlined"
-              onClick={this.handleChipClick(dtr)}
-              onDelete={this.handleChipDelete(dtr, i)}
-              // onDelete={null}
-            />
-          ))}
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={this.state.snackbar.open}
-            autoHideDuration={4000}
-            message={
-              <span>Η καταχώρηση {this.state.snackbar.message} διαγράφηκε</span>
-            }
-            action={[
-              <Button
-                color="secondary"
-                size="small"
-                onClick={this.handleUndoChipDelete}
-                children="ΑΝΑΙΡΕΣΗ"
-              />,
-              <IconButton
-                color="inherit"
-                onClick={this.handleSnackbarClose}
-                children={<CloseIcon />}
-              />,
-            ]}
+          <DateTimeReasonCollection
+            dtrArray={this.state.dateTimeReason}
+            onChipClick={this.handleChipClick}
+            onChipDelete={this.handleChipDelete}
+            popover={this.state.popover}
+            onPopoverClose={this.handlePopoverClose}
+            snackbar={this.state.snackbar}
+            onSnackbarClose={this.handleSnackbarClose}
+            onUndoChipDelete={this.handleUndoChipDelete}
           />
         </div>
         <br />
