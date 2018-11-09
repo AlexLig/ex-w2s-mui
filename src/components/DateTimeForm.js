@@ -71,7 +71,7 @@ class DateTimeForm extends Component {
             value={endTime}
             onChange={this.handleEndTimeChange}
           />
-          <Button variant="raised" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit">
             Προσθηκη
           </Button>
         </div>
