@@ -45,7 +45,8 @@ class E4 extends Component {
       finish: Date.now(),
       isWork: true,
     },
-    dateTimeReasonArr: [], // TODO: reset DTR array on afm change!
+    dateTimeReason: [], // TODO: reset DTR array on afm change!
+    lastDateTimeReason: [],
     // isDisabled: {
     //   afmEmployer: false,
     //   ameEmployer: false,
@@ -65,8 +66,8 @@ class E4 extends Component {
     const { date, start, finish, isWork } = this.state.form
     this.setState({
       // Don't add if empty!
-      dateTimeReasonArr: [
-        ...this.state.dateTimeReasonArr,
+      dateTimeReason: [
+        ...this.state.dateTimeReason,
         {
           date: date,
           start: start,
@@ -106,19 +107,33 @@ class E4 extends Component {
     })
   }
   handleChipDelete = (dtr, i) => () => {
-    const dtrArray = this.state.dateTimeReasonArr
-    this.setState({
-      dateTimeReasonArr: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
-      snackbar: {
-        open: true,
-        message: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
-      },
+    const dtrArray = this.state.dateTimeReason
+
+    this.setState(prevState => {
+      const dtrArray = prevState.dateTimeReason
+
+      return {
+        lastDateTimeReason: [...dtrArray],
+        dateTimeReason: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
+        snackbar: {
+          open: true,
+          message: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
+        },
+      }
     })
+  }
+  handleUndoChipDelete = () => {
+    this.setState(prevState => ({
+      dateTimeReason: [...prevState.lastDateTimeReason],
+    }))
+    this.handleSnackbarClose()
   }
   handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') return
 
-    this.setState({ snackbar: { ...this.state.snackbar, open: false } })
+    this.setState(prevState => ({
+      snackbar: { ...prevState.snackbar, open: false },
+    }))
   }
 
   render() {
@@ -154,15 +169,14 @@ class E4 extends Component {
               this.setState({
                 popover: { open: false, anchorEl: null, content: null },
               })
-            }
-            children={
-              <Typography className={classes.typography}>
-                {/* children={this.state.popover.content} */}
-                {this.state.popover.content}
-              </Typography>
-            }
+            }>
+            <Typography
+              className={classes.typography}
+              children={this.state.popover.content}
+            />
+          </Popover>
           />
-          {this.state.dateTimeReasonArr.map((dtr, i) => (
+          {this.state.dateTimeReason.map((dtr, i) => (
             <Chip
               avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
               className={classes.chip}
@@ -172,6 +186,7 @@ class E4 extends Component {
               variant="outlined"
               onClick={this.handleChipClick(dtr)}
               onDelete={this.handleChipDelete(dtr, i)}
+              // onDelete={null}
             />
           ))}
           <Snackbar
@@ -188,7 +203,7 @@ class E4 extends Component {
               <Button
                 color="secondary"
                 size="small"
-                onClick={this.handleSnackbarClose}
+                onClick={this.handleUndoChipDelete}
                 children="ΑΝΑΙΡΕΣΗ"
               />,
               <IconButton
