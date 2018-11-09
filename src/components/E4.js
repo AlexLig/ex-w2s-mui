@@ -78,7 +78,14 @@ class E4 extends Component {
     event.preventDefault()
   }
   handleChipClick = () => {}
-  handleChipDelete = () => {}
+  handleChipDelete = i => () => {
+    const dtrArray = this.state.dateTimeReasonArr
+    this.setState({
+      dateTimeReasonArr: dtrArray.filter(dtr => (
+        dtrArray.indexOf(dtr) !== i
+      )),
+    })
+  }
 
   render() {
     const classes = this.props
@@ -97,16 +104,16 @@ class E4 extends Component {
         <br />
         <DateTimeForm />
         <br />
-        {this.state.dateTimeReasonArr.map(dtr => (
+        {this.state.dateTimeReasonArr.map((dtr, i) => (
           <Chip
             avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
             className={classes.chip}
             label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
             clickable
-            color={dtr.isWork ? "primary" : "secondary"}
+            color={dtr.isWork ? 'primary' : 'secondary'}
             variant="outlined"
-            onDelete={this.handleChipDelete}
             onClick={this.handleChipClick}
+            onDelete={this.handleChipDelete(i)}
           />
         ))}
         <br />
