@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { Button, Chip, Avatar, withStyles } from '@material-ui/core'
+import {
+  Button,
+  Chip,
+  Avatar,
+  withStyles,
+  Popover,
+  Typography,
+} from '@material-ui/core'
 import Displayer from './Displayer'
 import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
@@ -10,6 +17,9 @@ const parse = form => form.afmEmployee + ' ' + form.afmEmployer
 const styles = theme => ({
   chip: {
     margin: theme.spacing.unit,
+  },
+  typography: {
+    margin: theme.spacing.unit * 2,
   },
   menu: {
     width: 200,
@@ -40,6 +50,11 @@ class E4 extends Component {
     // },
     snackbar: {
       isOpen: false,
+    },
+    popover: {
+      anchorEl: null,
+      open: false,
+      content: null,
     },
   }
   addDateTimeReason = () => {
@@ -77,13 +92,19 @@ class E4 extends Component {
     console.log(this.state.form)
     event.preventDefault()
   }
-  handleChipClick = () => {}
+  handleChipClick = dtr => event => {
+    this.setState({
+      popover: {
+        anchorEl: event.currentTarget,
+        open: true,
+        content: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
+      },
+    })
+  }
   handleChipDelete = i => () => {
     const dtrArray = this.state.dateTimeReasonArr
     this.setState({
-      dateTimeReasonArr: dtrArray.filter(dtr => (
-        dtrArray.indexOf(dtr) !== i
-      )),
+      dateTimeReasonArr: dtrArray.filter(dtr => dtrArray.indexOf(dtr) !== i),
     })
   }
 
@@ -104,18 +125,44 @@ class E4 extends Component {
         <br />
         <DateTimeForm />
         <br />
-        {this.state.dateTimeReasonArr.map((dtr, i) => (
-          <Chip
-            avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
-            className={classes.chip}
-            label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
-            clickable
-            color={dtr.isWork ? 'primary' : 'secondary'}
-            variant="outlined"
-            onClick={this.handleChipClick}
-            onDelete={this.handleChipDelete(i)}
+        <div className="chips-container">
+          <Popover
+            open={this.state.popover.open}
+            anchorEl={this.state.popover.anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            onClose={() =>
+              this.setState({
+                popover: { open: false, anchorEl: null, content: null },
+              })
+            }
+            children={
+              <Typography
+                className={classes.typography}>
+                {/* children={this.state.popover.content} */}
+                {this.state.popover.content}
+              </Typography>
+            }
           />
-        ))}
+          {this.state.dateTimeReasonArr.map((dtr, i) => (
+            <Chip
+              avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
+              className={classes.chip}
+              label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
+              clickable
+              color={dtr.isWork ? 'primary' : 'secondary'}
+              variant="outlined"
+              onClick={this.handleChipClick(dtr)}
+              onDelete={this.handleChipDelete(i)}
+            />
+          ))}
+        </div>
         <br />
 
         <Displayer erganiCode={parse(this.state.form)} />
