@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Button } from '@material-ui/core'
+import { Button, withStyles } from '@material-ui/core'
 import Displayer from './Displayer'
 import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
 import DateTimeForm from './DateTimeForm'
+import DateTimeReasonCollection from './DateTimeReasonCollection'
 
 const isValidVnum = (fieldValue, fieldName) => {
   const rules = {
@@ -14,6 +15,23 @@ const isValidVnum = (fieldValue, fieldName) => {
   return fieldValue.length === rules[fieldName] && !isNaN(fieldValue)
 }
 const parse = form => form.afmEmployee + ' ' + form.afmEmployer
+
+const styles = theme => ({
+  chip: {
+    margin: theme.spacing.unit,
+  },
+  typography: {
+    margin: theme.spacing.unit * 2,
+  },
+  menu: {
+    width: 200,
+  },
+})
+
+const reasons = [
+  { key: 'Απασχόληση', value: true },
+  { key: 'Διακοπές', value: false },
+]
 
 class E4 extends Component {
   state = {
@@ -27,6 +45,8 @@ class E4 extends Component {
       isWork: true,
     },
     dateTimeReason: [], 
+    lastDateTimeReason: [],
+
     isValid: {
       afmEmployer: false,
       ameEmployer: false,
@@ -42,21 +62,33 @@ class E4 extends Component {
       ameEmployer: false,
       afmEmployee: false,
     },
+
+    snackbar: {
+      open: false,
+      message: null,
+    },
+    popover: {
+      anchorEl: null,
+      open: false,
+      content: null,
+    },
   }
   rules = {
     afmEmployer: 9,
     ameEmployer: 10,
     afmEmployee: 9,
   }
+
   validate = name => {
     const fieldValue = this.state.form[name]
     this.setState({
       isValid: {
         ...this.state.isValid,
-        [name]: isValidVnum(fieldValue, name),
-      },
-    })
-  }
+        [name]: isValidVnum(fieldValue, name)
+    },
+  })}
+
+
   shoudDisable = name => {
     this.validate(name)
     this.setState({
@@ -119,8 +151,52 @@ class E4 extends Component {
     console.log(this.state.form)
     event.preventDefault()
   }
+  handleChipClick = dtr => event => {
+    this.setState({
+      popover: {
+        anchorEl: event.currentTarget,
+        open: true,
+        content: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
+      },
+    })
+  }
+  handleChipDelete = (dtr, i) => () => {
+    const dtrArray = this.state.dateTimeReason
+
+    this.setState(prevState => {
+      const dtrArray = prevState.dateTimeReason
+
+      return {
+        lastDateTimeReason: [dtr],
+        dateTimeReason: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
+        snackbar: {
+          open: true,
+          message: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
+        },
+      }
+    })
+  }
+  handleUndoChipDelete = () => {
+    this.setState(prevState => ({
+      dateTimeReason: [...prevState.dateTimeReason, ...prevState.lastDateTimeReason],
+    }))
+    this.handleSnackbarClose()
+  }
+  handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') return
+
+    this.setState(prevState => ({
+      snackbar: { ...prevState.snackbar, open: false },
+    }))
+  }
+  handlePopoverClose = () =>
+    this.setState(prevState => ({
+      popover: { ...prevState.popover, open: false },
+    }))
+
   render() {
     const { isValid, isTouched, isDisabled } = this.state
+    const classes = this.props
     return (
       <form onSubmit={this.handleSubmit}>
         <VatNumbers
@@ -138,11 +214,25 @@ class E4 extends Component {
           onChange={this.handleChange}
           form={this.state.form}
           onAddDateTimeReason={this.addDateTimeReason}
+          reasons={reasons}
+          classes={classes}
         />
         <br />
         <DateTimeForm />
         <br />
 
+        <div className="chips-container">
+          <DateTimeReasonCollection
+            dtrArray={this.state.dateTimeReason}
+            onChipClick={this.handleChipClick}
+            onChipDelete={this.handleChipDelete}
+            popover={this.state.popover}
+            onPopoverClose={this.handlePopoverClose}
+            snackbar={this.state.snackbar}
+            onSnackbarClose={this.handleSnackbarClose}
+            onUndoChipDelete={this.handleUndoChipDelete}
+          />
+        </div>
         <br />
 
         <Displayer erganiCode={parse(this.state.form)} />
@@ -156,4 +246,4 @@ class E4 extends Component {
   }
 }
 
-export default E4
+export default withStyles(styles)(E4)
