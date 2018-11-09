@@ -26,7 +26,7 @@ class E4 extends Component {
       finish: '',
       isWork: true,
     },
-    dateTimeReason: [], // TODO: reset DTR array on afm change!
+    dateTimeReason: [], 
     isValid: {
       afmEmployer: false,
       ameEmployer: false,
@@ -143,7 +143,6 @@ class E4 extends Component {
         <DateTimeForm />
         <br />
 
-        {/* TODO: <Chips /> */}
         <br />
 
         <Displayer erganiCode={parse(this.state.form)} />
