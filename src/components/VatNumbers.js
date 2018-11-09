@@ -1,13 +1,16 @@
 import React, { Fragment } from 'react'
-import { TextField } from '@material-ui/core'
+import { TextField, InputAdornment, IconButton } from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit'
 
 const VatNumbers = props => {
   const {
     onChange,
     onBlur,
+    onEdit,
     form: { afmEmployer, ameEmployer, afmEmployee },
     isValid,
     isTouched,
+    isDisabled,
   } = props
 
   return (
@@ -25,7 +28,19 @@ const VatNumbers = props => {
         }
         margin="normal"
         variant="outlined"
+        disabled={isDisabled.afmEmployer}
+        InputProps={{
+          endAdornment: isDisabled.afmEmployer ? (
+            <InputAdornment variant="filled" position="end">
+              <IconButton
+                onClick={onEdit('afmEmployer')}
+                children={<EditIcon />}
+              />
+            </InputAdornment>
+          ) : null,
+        }}
       />
+
       <br />
       <TextField
         label="ΑΜΕ Εργοδότη"
@@ -40,6 +55,17 @@ const VatNumbers = props => {
         }
         margin="normal"
         variant="outlined"
+        disabled={isDisabled.ameEmployer}
+        InputProps={{
+          endAdornment: isDisabled.ameEmployer ? (
+            <InputAdornment variant="filled" position="end">
+              <IconButton
+                onClick={onEdit('ameEmployer')}
+                children={<EditIcon />}
+              />
+            </InputAdornment>
+          ) : null,
+        }}
       />
       <br />
       <TextField
@@ -56,6 +82,17 @@ const VatNumbers = props => {
         }
         margin="normal"
         variant="outlined"
+        disabled={isDisabled.afmEmployee}
+        InputProps={{
+          endAdornment: isDisabled.afmEmployee ? (
+            <InputAdornment variant="filled" position="end">
+              <IconButton
+                onClick={onEdit('afmEmployee')}
+                children={<EditIcon />}
+              />
+            </InputAdornment>
+          ) : null,
+        }}
       />
     </Fragment>
   )

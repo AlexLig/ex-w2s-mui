@@ -32,11 +32,16 @@ class E4 extends Component {
       ameEmployer: false,
       afmEmployee: false,
     },
-    isTouched:{
+    isTouched: {
       afmEmployer: false,
       ameEmployer: false,
       afmEmployee: false,
-    }
+    },
+    isDisabled: {
+      afmEmployer: false,
+      ameEmployer: false,
+      afmEmployee: false,
+    },
   }
   rules = {
     afmEmployer: 9,
@@ -52,6 +57,15 @@ class E4 extends Component {
       },
     })
   }
+  shoudDisable = name => {
+    this.validate(name)
+    this.setState({
+      isDisabled: {
+        ...this.state.isDisabled,
+        [name]: this.state.isValid[name],
+      },
+    })
+  }
   addDateTimeReason = () => {
     const { date, start, finish, isWork } = this.state.form
     this.setState({
@@ -62,37 +76,61 @@ class E4 extends Component {
     })
   }
   handleChange = name => ({ target: { value } }) => {
-    // if(!this.state.isValid[name]) this.validate(name)
-    this.setState({
-      form: {
-        ...this.state.form,
-        [name]: value.trim(),
+    this.setState(
+      {
+        form: {
+          ...this.state.form,
+          [name]: value.trim(),
+        },
       },
-    }, () => this.validate(name))
+      () => this.validate(name)
+    )
   }
   handleBlur = name => () => {
-    this.validate(name)
-    this.setState({
-      isTouched:{
-        ...this.state.isTouched,
-        [name]: true
-      }
-    })
+    this.setState(
+      {
+        isTouched: {
+          ...this.state.isTouched,
+          [name]: true,
+        },
+      },
+      () => this.shoudDisable(name)
+    )
+  }
+  handleEdit = name => () => {
+    if (this.state.dateTimeReason.length > 0) {
+      this.setState({
+        dateTimeReason: [],
+        isDisabled: {
+          ...this.state.isDisabled,
+          [name]: false,
+        },
+      })
+    } else {
+      this.setState({
+        isDisabled: {
+          ...this.state.isDisabled,
+          [name]: false,
+        },
+      })
+    }
   }
   handleSubmit = event => {
     console.log(this.state.form)
     event.preventDefault()
   }
   render() {
-    const { isValid, isTouched } = this.state
+    const { isValid, isTouched, isDisabled } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <VatNumbers
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          onEdit={this.handleEdit}
           form={this.state.form}
           isValid={isValid}
           isTouched={isTouched}
+          isDisabled={isDisabled}
         />
         <br />
 
