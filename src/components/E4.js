@@ -5,7 +5,16 @@ import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
 import DateTimeForm from './DateTimeForm'
 
+const isValidVnum = (fieldValue, fieldName) => {
+  const rules = {
+    afmEmployer: 9,
+    ameEmployer: 10,
+    afmEmployee: 9,
+  }
+  return fieldValue.length === rules[fieldName] && !isNaN(fieldValue)
+}
 const parse = form => form.afmEmployee + ' ' + form.afmEmployer
+
 class E4 extends Component {
   state = {
     form: {
@@ -18,11 +27,16 @@ class E4 extends Component {
       isWork: true,
     },
     dateTimeReason: [], // TODO: reset DTR array on afm change!
-    errors: {
+    isValid: {
       afmEmployer: false,
       ameEmployer: false,
       afmEmployee: false,
     },
+    isTouched:{
+      afmEmployer: false,
+      ameEmployer: false,
+      afmEmployee: false,
+    }
   }
   rules = {
     afmEmployer: 9,
@@ -30,11 +44,11 @@ class E4 extends Component {
     afmEmployee: 9,
   }
   validate = name => {
-    const field = this.state.form[name]
+    const fieldValue = this.state.form[name]
     this.setState({
-      errors: {
-        ...this.state.errors,
-        [name]: field.length !== this.rules[name] || isNaN(field),
+      isValid: {
+        ...this.state.isValid,
+        [name]: isValidVnum(fieldValue, name),
       },
     })
   }
@@ -48,30 +62,37 @@ class E4 extends Component {
     })
   }
   handleChange = name => ({ target: { value } }) => {
+    // if(!this.state.isValid[name]) this.validate(name)
     this.setState({
       form: {
         ...this.state.form,
-        [name]: value,
+        [name]: value.trim(),
       },
-    })
+    }, () => this.validate(name))
   }
   handleBlur = name => () => {
     this.validate(name)
+    this.setState({
+      isTouched:{
+        ...this.state.isTouched,
+        [name]: true
+      }
+    })
   }
   handleSubmit = event => {
     console.log(this.state.form)
     event.preventDefault()
   }
-
   render() {
-    const { errors } = this.state
+    const { isValid, isTouched } = this.state
     return (
-      <form onClick={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <VatNumbers
           onChange={this.handleChange}
           onBlur={this.handleBlur}
           form={this.state.form}
-          errors={errors}
+          isValid={isValid}
+          isTouched={isTouched}
         />
         <br />
 

@@ -6,29 +6,38 @@ const VatNumbers = props => {
     onChange,
     onBlur,
     form: { afmEmployer, ameEmployer, afmEmployee },
-    errors
+    isValid,
+    isTouched,
   } = props
-  
+
   return (
     <Fragment>
       <TextField
-        id="afm-employer"
         label="ΑΦΜ Εργοδότη"
         value={afmEmployer}
         onChange={onChange('afmEmployer')}
-        onBlur= {onBlur('afmEmployer')}
-        error={errors.afmEmployer}
+        onBlur={onBlur('afmEmployer')}
+        error={isTouched.afmEmployer ? !isValid.afmEmployer : false}
+        helperText={
+          isTouched.afmEmployer && !isValid.afmEmployer
+            ? 'Προσθέστε 9 αριθμούς'
+            : ''
+        }
         margin="normal"
         variant="outlined"
       />
       <br />
       <TextField
-        id="ame-employer"
         label="ΑΜΕ Εργοδότη"
         value={ameEmployer}
         onChange={onChange('ameEmployer')}
-        onBlur= {onBlur('ameEmployer')}
-        error={errors.ameEmployer}
+        onBlur={onBlur('ameEmployer')}
+        error={isTouched.ameEmployer ? !isValid.ameEmployer : false}
+        helperText={
+          isTouched.ameEmployer && !isValid.ameEmployer
+            ? 'Προσθέστε 10 αριθμούς'
+            : ''
+        }
         margin="normal"
         variant="outlined"
       />
@@ -38,8 +47,13 @@ const VatNumbers = props => {
         label="ΑΦΜ Εργαζομένου"
         value={afmEmployee}
         onChange={onChange('afmEmployee')}
-        onBlur = {onBlur('afmEmployee')}
-        error={errors.afmEmployee}
+        onBlur={onBlur('afmEmployee')}
+        error={isTouched.afmEmployee ? !isValid.afmEmployee : false}
+        helperText={
+          isTouched.afmEmployee && !isValid.afmEmployee
+            ? 'Προσθέστε 9 αριθμούς'
+            : ''
+        }
         margin="normal"
         variant="outlined"
       />
