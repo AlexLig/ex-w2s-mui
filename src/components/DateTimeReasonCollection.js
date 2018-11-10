@@ -60,9 +60,9 @@ const DateTimeReasonCollection = props => {
           horizontal: 'left',
         }}
         open={snackbar.open}
-        autoHideDuration={4000}
+        autoHideDuration={6000}
         onClose={onSnackbarClose}
-        message={<span>Η καταχώρηση {snackbar.message} διαγράφηκε</span>}
+        message={<span>Η καταχώρηση <code>{snackbar.message}</code> διαγράφηκε</span>}
         action={[
           <Button
             color="secondary"

@@ -184,7 +184,7 @@ class E4 extends Component {
         dateTimeReason: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
         snackbar: {
           open: true,
-          message: `${dtr.date}, ${dtr.start} - ${dtr.finish}`,
+          message: `${dtr.isWork ? 'Απασχόληση' : 'Διακοπές'}: ${dtr.date}, ${dtr.start} - ${dtr.finish}`,
         },
       }
     })
