@@ -5,6 +5,7 @@ import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
 import DateTimeForm from './DateTimeForm'
 import DateTimeReasonCollection from './DateTimeReasonCollection'
+import e4parser from '../e4parser'
 
 const isValidVnum = (fieldValue, fieldName) => {
   const rules = {
@@ -14,7 +15,6 @@ const isValidVnum = (fieldValue, fieldName) => {
   }
   return fieldValue.length === rules[fieldName] && !isNaN(fieldValue)
 }
-const parse = form => form.afmEmployee + ' ' + form.afmEmployer
 
 const styles = theme => ({
   chip: {
@@ -184,7 +184,9 @@ class E4 extends Component {
         dateTimeReason: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
         snackbar: {
           open: true,
-          message: `${dtr.isWork ? 'Απασχόληση' : 'Διακοπές'}: ${dtr.date}, ${dtr.start} - ${dtr.finish}`,
+          message: `${dtr.isWork ? 'Απασχόληση' : 'Διακοπές'}: ${dtr.date}, ${
+            dtr.start
+          } - ${dtr.finish}`,
         },
       }
     })
@@ -251,7 +253,9 @@ class E4 extends Component {
         </div>
         <br />
 
-        <Displayer erganiCode={parse(this.state.form)} />
+        <Displayer
+          erganiCode={e4parser(this.state.form, this.state.dateTimeReason)}
+        />
         <br />
 
         <Button variant="outlined" type="submit">
