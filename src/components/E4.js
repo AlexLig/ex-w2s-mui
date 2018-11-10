@@ -30,7 +30,7 @@ const styles = theme => ({
 
 const reasons = [
   { key: 'Απασχόληση', value: true },
-  { key: 'Διακοπές', value: false },
+  { key: 'Διάλειμμα', value: false },
 ]
 
 class E4 extends Component {
@@ -184,7 +184,7 @@ class E4 extends Component {
         dateTimeReason: dtrArray.filter(el => dtrArray.indexOf(el) !== i),
         snackbar: {
           open: true,
-          message: `${dtr.isWork ? 'Απασχόληση' : 'Διακοπές'}: ${dtr.date}, ${
+          message: `${dtr.isWork ? 'Απασχόληση' : 'Διάλειμμα'}: ${dtr.date}, ${
             dtr.start
           } - ${dtr.finish}`,
         },
@@ -235,8 +235,6 @@ class E4 extends Component {
           reasons={reasons}
           classes={classes}
         />
-        <br />
-        <DateTimeForm />
         <br />
 
         <div className="chips-container">
