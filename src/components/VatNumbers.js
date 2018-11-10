@@ -1,6 +1,45 @@
 import React, { Fragment } from 'react'
 import { TextField, InputAdornment, IconButton } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
+import NumberFormat from 'react-number-format';
+
+
+function AfmFormat(props) {
+  const {onChange, ...other } = props
+
+  return (
+    <NumberFormat
+      {...other}
+      format="#########"
+      mask={'_'}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        })
+      }}
+    />
+  )
+}
+function AmeFormat(props) {
+  const {onChange, ...other } = props
+
+  return (
+    <NumberFormat
+      {...other}
+      format="##########"
+      mask={'_'}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        })
+      }}
+    />
+  )
+}
 
 const VatNumbers = props => {
   const {
@@ -30,6 +69,7 @@ const VatNumbers = props => {
         variant="outlined"
         disabled={isDisabled.afmEmployer}
         InputProps={{
+          inputComponent: AfmFormat,
           endAdornment: isDisabled.afmEmployer ? (
             <InputAdornment variant="filled" position="end">
               <IconButton
@@ -57,6 +97,7 @@ const VatNumbers = props => {
         variant="outlined"
         disabled={isDisabled.ameEmployer}
         InputProps={{
+          inputComponent: AmeFormat,
           endAdornment: isDisabled.ameEmployer ? (
             <InputAdornment variant="filled" position="end">
               <IconButton
@@ -84,6 +125,7 @@ const VatNumbers = props => {
         variant="outlined"
         disabled={isDisabled.afmEmployee}
         InputProps={{
+          inputComponent: AfmFormat,
           endAdornment: isDisabled.afmEmployee ? (
             <InputAdornment variant="filled" position="end">
               <IconButton

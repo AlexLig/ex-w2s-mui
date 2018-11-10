@@ -107,9 +107,9 @@ class E4 extends Component {
       ],
       form: {
         ...this.state.form,
-        date: 'TEST',
-        start: 'TEST',
-        finish: 'Test',
+        date: '',
+        start: '',
+        finish: '',
         isWork: !isWork,
       },
     })
