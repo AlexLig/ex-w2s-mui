@@ -135,8 +135,8 @@ class E8 extends Component {
     // const classes = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        <Grid container direction="column" justify="center" alignItems="center" spacing={40}>
-          <Grid item sm={6} xs={8}>
+        <Grid container direction="column" justify="space-evenly" spacing={8}>
+          <Grid item>
             <VatNumbers
               onChange={this.handleChange}
               onBlur={this.handleBlur}
@@ -147,7 +147,7 @@ class E8 extends Component {
               isDisabled={isDisabled}
             />
           </Grid>
-          <Grid item sm={6} xs={8}>
+          <Grid item>
             <Overtime
               onChange={this.handleChange}
               onChangeOvertimeHours={this.handleChangeOvertimeHours}
@@ -157,12 +157,14 @@ class E8 extends Component {
               isDisabled={this.state.isDisabled} />
           </Grid>
 
-          <Grid item sm={6} xs={8}>
+          <Grid item>
             <Displayer
               erganiCode={e8parser(this.state.form)}
+              style={{ padding: '10%' }}
+
             />
           </Grid>
-          <Grid item sm={6} xs={8}>
+          <Grid item style={{ marginLeft: 'auto' }}>
             <Button variant="outlined" type="submit">
               Αποστολη Μηνυματος
             </Button>

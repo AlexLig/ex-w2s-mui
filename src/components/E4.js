@@ -222,13 +222,7 @@ class E4 extends Component {
           direction="column"
           justify="space-evenly"
           spacing={8}
-          style={{
-            // backgroundColor: 'white',
-            padding: '1rem',
-            // borderRadius: '5px',
-            // maxWidth: 400,
-            marginTop: '1rem',
-          }}>
+          >
           <Grid item>
             <VatNumbers
               onChange={this.handleChange}
