@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, withStyles, Grid } from '@material-ui/core'
 import Displayer from '../Displayer'
 import VatNumbers from '../VatNumbers'
-import e4parser from '../../e4parser'
+import e8parser from '../../e8parser'
 import Overtime from './Overtime';
 
 const isValidVnum = (fieldValue, fieldName) => {
@@ -132,11 +132,11 @@ class E8 extends Component {
 
   render() {
     const { isValid, isTouched, isDisabled } = this.state
-    const classes = this.props
+    // const classes = this.props
     return (
       <form onSubmit={this.handleSubmit}>
         <Grid container direction="column" justify="center" alignItems="center" spacing={40}>
-          <Grid item style={{ backgroundColor: 'gray' }} sm={6} xs={8}>
+          <Grid item  sm={6} xs={8}>
             <VatNumbers
               onChange={this.handleChange}
               onBlur={this.handleBlur}
@@ -147,7 +147,7 @@ class E8 extends Component {
               isDisabled={isDisabled}
             />
           </Grid>
-          <Grid item style={{ backgroundColor: 'gray' }} sm={6} xs={8}>
+          <Grid item  sm={6} xs={8}>
             <Overtime
               onChange={this.handleChange}
               onChangeOvertimeHours={this.handleChangeOvertimeHours}
@@ -157,9 +157,9 @@ class E8 extends Component {
               isDisabled={this.state.isDisabled} />
           </Grid>
 
-          <Grid item style={{ backgroundColor: 'gray' }} sm={6} xs={8}>
+          <Grid item  sm={6} xs={8}>
             <Displayer
-            // erganiCode={e4parser(this.state.form, this.state.dateTimeReason)}
+            erganiCode={e8parser(this.state.form)}
             />
             <Button variant="outlined" type="submit">
               Αποστολη Μηνυματος
