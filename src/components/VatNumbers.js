@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { TextField, InputAdornment, IconButton, Grid } from '@material-ui/core'
+import { TextField, InputAdornment, IconButton, Grid, Divider } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import NumberFormat from 'react-number-format'
 
@@ -53,7 +53,7 @@ const VatNumbers = props => {
 
   return (
     
-      <Grid container spacing={16} alignContent="space-between" justify="center">
+      <Grid container spacing={16} alignContent="flex-start" justify="center">
             <Grid item sm={6} xs={12}>
               <TextField
                 label="ΑΦΜ Εργοδότη"

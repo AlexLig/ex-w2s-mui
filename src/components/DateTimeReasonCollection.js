@@ -42,7 +42,7 @@ const DateTimeReasonCollection = props => {
           children={popper.content}
         />
       </Popover>
-      <Grid container spacing={8} justify="center">
+      <Grid container spacing={8} justify="flex-start">
         {dtrArray.map((dtr, i) => (
           <Grid item>
             <Chip

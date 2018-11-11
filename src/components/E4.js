@@ -39,9 +39,9 @@ class E4 extends Component {
       afmEmployer: '',
       ameEmployer: '',
       afmEmployee: '',
-      date: '',
-      start: '',
-      finish: '',
+      date: '221118',
+      start: '0800',
+      finish: '1500',
       isWork: true,
     },
     dateTimeReason: [],
@@ -107,9 +107,9 @@ class E4 extends Component {
       ],
       form: {
         ...this.state.form,
-        date: '',
-        start: '',
-        finish: '',
+        date: '221118',
+        start: '0800',
+        finish: '1500',
         isWork: !isWork,
       },
     })
@@ -216,67 +216,65 @@ class E4 extends Component {
     const { isValid, isTouched, isDisabled } = this.state
     const classes = this.props
     return (
-        <form onSubmit={this.handleSubmit}>
-          <Grid
-            container
-            direction="column"
-            justify="space-evenly"
-            spacing={8}
-            style={{
-              // backgroundColor: 'white',
-              padding: '1rem',
-              // borderRadius: '5px',
-              marginTop: '1rem',
-            }}>
-            <Grid item>
-              <VatNumbers
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                onEdit={this.handleEdit}
-                form={this.state.form}
-                isValid={isValid}
-                isTouched={isTouched}
-                isDisabled={isDisabled}
-              />
-            </Grid>
-            <Grid item>
-              <DateTimeReason
-                onChange={this.handleChange}
-                form={this.state.form}
-                onAddDateTimeReason={this.addDateTimeReason}
-                reasons={reasons}
-                classes={classes}
-              />
-            </Grid>
-
-            <Grid item>
-              <DateTimeReasonCollection
-                dtrArray={this.state.dateTimeReason}
-                onChipClick={this.handleChipClick}
-                onChipDelete={this.handleChipDelete}
-                popper={this.state.popper}
-                onPopperClose={this.handlePopperClose}
-                snackbar={this.state.snackbar}
-                onSnackbarClose={this.handleSnackbarClose}
-                onUndoChipDelete={this.handleUndoChipDelete}
-              />
-            </Grid>
-            <Grid item>
-              <Displayer
-                erganiCode={e4parser(
-                  this.state.form,
-                  this.state.dateTimeReason
-                )}
-                style={{ padding: '10%' }}
-              />
-            </Grid>
-            <Grid item style={{ marginLeft: 'auto' }}>
-              <Button variant="outlined" type="submit">
-                Αποστολη Μηνυματος
-              </Button>
-            </Grid>
+      <form onSubmit={this.handleSubmit}>
+        <Grid
+          container
+          direction="column"
+          justify="space-evenly"
+          spacing={8}
+          style={{
+            // backgroundColor: 'white',
+            padding: '1rem',
+            // borderRadius: '5px',
+            // maxWidth: 400,
+            marginTop: '1rem',
+          }}>
+          <Grid item>
+            <VatNumbers
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              onEdit={this.handleEdit}
+              form={this.state.form}
+              isValid={isValid}
+              isTouched={isTouched}
+              isDisabled={isDisabled}
+            />
           </Grid>
-        </form>
+          <Grid item>
+            <DateTimeReason
+              onChange={this.handleChange}
+              form={this.state.form}
+              onAddDateTimeReason={this.addDateTimeReason}
+              reasons={reasons}
+              classes={classes}
+            />
+          </Grid>
+
+          <Grid item>
+            <DateTimeReasonCollection
+              dtrArray={this.state.dateTimeReason}
+              onChipClick={this.handleChipClick}
+              onChipDelete={this.handleChipDelete}
+              popper={this.state.popper}
+              onPopperClose={this.handlePopperClose}
+              snackbar={this.state.snackbar}
+              onSnackbarClose={this.handleSnackbarClose}
+              onUndoChipDelete={this.handleUndoChipDelete}
+            />
+          </Grid>
+          <Grid item>
+            <Displayer
+              erganiCode={e4parser(this.state.form, this.state.dateTimeReason)}
+              style={{ padding: '10%' }}
+            />
+          </Grid>
+          <Grid item style={{ marginLeft: 'auto' }}>
+            <Button variant="outlined" type="submit">
+              Αποστολη Μηνυματος
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     )
   }
 }

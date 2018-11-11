@@ -59,7 +59,7 @@ const DateTimeReason = props => {
             }}
           />
         </Grid>
-        <Grid item sm={6} xs={12}>
+        <Grid item sm={3} xs={6}>
           <TextField
             label="Ώρα Έναρξης"
             value={props.form.start}
@@ -71,7 +71,7 @@ const DateTimeReason = props => {
             }}
           />
         </Grid>
-        <Grid item sm={6} xs={12}>
+        <Grid item sm={3} xs={6}>
           <TextField
             label="Ώρα Λήξης"
             value={props.form.finish}
@@ -88,7 +88,7 @@ const DateTimeReason = props => {
           <TextField
             select
             label="Αιτιολογία"
-            helperText="Επιλέξτε αιτιολογία"
+            // helperText="Επιλέξτε αιτιολογία"
             value={props.form.isWork}
             onChange={onChange('isWork')}
             margin="normal"
@@ -107,8 +107,8 @@ const DateTimeReason = props => {
           </TextField>
         </Grid>
 
-        <Grid item style={{marginLeft: 'auto'}}>
-          <Button variant="contained" color="primary" onClick={onAddDateTimeReason}>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" fullWidth onClick={onAddDateTimeReason}>
             ΠΡΟΣΘΗΚΗ
           </Button>
         </Grid>

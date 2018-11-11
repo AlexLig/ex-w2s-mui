@@ -1,5 +1,5 @@
 export default (vatNums, dateTimeReasons) => {
-  const erganiCode = [...parseVatNums(vatNums), ...parseDtrs(dateTimeReasons)]
+  const erganiCode = ['Σ1', ...parseVatNums(vatNums), ...parseDtrs(dateTimeReasons)]
   return erganiCode.join(' ')
 }
 

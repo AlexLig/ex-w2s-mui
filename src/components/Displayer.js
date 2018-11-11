@@ -10,6 +10,8 @@ const Displayer = props => {
           value={props.erganiCode}
           margin="normal"
           fullWidth
+          multiline
+          rowsMax="4"
           InputProps={{
             readOnly: true,
           }}

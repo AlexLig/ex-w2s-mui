@@ -9,7 +9,7 @@ class App extends Component {
     return (
       // <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="center">
-        <Grid item xs={10} md={8} lg={5}>
+        <Grid item xs={10} md={8} lg={5} style={{maxWidth: 500}}>
           <Paper>
             <E4 />
           </Paper>
