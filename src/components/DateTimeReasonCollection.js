@@ -7,6 +7,7 @@ import {
   Snackbar,
   Button,
   IconButton,
+  Grid,
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
@@ -41,19 +42,23 @@ const DateTimeReasonCollection = props => {
           children={popper.content}
         />
       </Popover>
-      {dtrArray.map((dtr, i) => (
-        <Chip
-          avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
-          // className={classes.chip}
-          label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
-          clickable
-          color={dtr.isWork ? 'primary' : 'secondary'}
-          variant="outlined"
-          onClick={onChipClick(dtr)}
-          onDelete={onChipDelete(dtr, i)}
-          // onDelete={null}
-        />
-      ))}
+      <Grid container spacing={8} justify="center">
+        {dtrArray.map((dtr, i) => (
+          <Grid item>
+            <Chip
+              avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
+              // className={classes.chip}
+              label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
+              clickable
+              color={dtr.isWork ? 'primary' : 'secondary'}
+              variant="outlined"
+              onClick={onChipClick(dtr)}
+              onDelete={onChipDelete(dtr, i)}
+              // onDelete={null}
+            />
+          </Grid>
+        ))}
+      </Grid>
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
@@ -62,7 +67,11 @@ const DateTimeReasonCollection = props => {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={onSnackbarClose}
-        message={<span>Η καταχώρηση <code>{snackbar.message}</code> διαγράφηκε</span>}
+        message={
+          <span>
+            Η καταχώρηση <code>{snackbar.message}</code> διαγράφηκε
+          </span>
+        }
         action={[
           <Button
             color="secondary"

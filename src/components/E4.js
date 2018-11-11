@@ -217,8 +217,12 @@ class E4 extends Component {
     const classes = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        <Grid container direction="column"  justify="center" alignItems="center" spacing={40}>
-          <Grid item style={{ backgroundColor: 'gray' }} sm={6} xs={8}>
+        <Grid container direction="column" justify="space-evenly" alignItems="center" spacing={8} style={{backgroundColor: 'lightGray'}}>
+          <Grid
+            item
+            style={{ backgroundColor: 'gray' }}
+            sm={6}
+            xs={8}>
             <VatNumbers
               onChange={this.handleChange}
               onBlur={this.handleBlur}
@@ -229,7 +233,11 @@ class E4 extends Component {
               isDisabled={isDisabled}
             />
           </Grid>
-          <Grid item style={{ backgroundColor: 'gray' }} sm={6} xs={8}>
+          <Grid
+            item
+            style={{ backgroundColor: 'gray'}}
+            sm={6}
+            xs={8}>
             <DateTimeReason
               onChange={this.handleChange}
               form={this.state.form}
@@ -239,7 +247,7 @@ class E4 extends Component {
             />
           </Grid>
 
-          <Grid item style={{ backgroundColor: 'gray' }} sm={6} xs={8}>
+          <Grid item style={{ backgroundColor: 'gray'}} sm={6} xs={8}>
             <DateTimeReasonCollection
               dtrArray={this.state.dateTimeReason}
               onChipClick={this.handleChipClick}
@@ -251,12 +259,17 @@ class E4 extends Component {
               onUndoChipDelete={this.handleUndoChipDelete}
             />
           </Grid>
-          <Grid item style={{ backgroundColor: 'gray' }} sm={6} xs={8}>
+          <Grid
+            item
+            style={{ backgroundColor: 'gray'}}
+            sm={6}
+            xs={8}
+            >
             <Displayer
               erganiCode={e4parser(this.state.form, this.state.dateTimeReason)}
             />
-          {/* </Grid> */}
-          {/* <Grid item style={{ backgroundColor: 'gray' }} > */}
+          </Grid>
+          <Grid item style={{ marginLeft: 'auto', marginTop: 'auto', backgroundColor: 'gray' }}>
             <Button variant="outlined" type="submit">
               Αποστολη Μηνυματος
             </Button>
