@@ -15,6 +15,8 @@ const Displayer = props => {
           }}
         />
       </Grid>
+      
+      
     </Grid>
   )
 }

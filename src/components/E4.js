@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, withStyles, Grid } from '@material-ui/core'
+import { Button, withStyles, Grid, Paper } from '@material-ui/core'
 import Displayer from './Displayer'
 import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
@@ -216,66 +216,67 @@ class E4 extends Component {
     const { isValid, isTouched, isDisabled } = this.state
     const classes = this.props
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Grid container direction="column" justify="space-evenly" alignItems="center" spacing={8} style={{backgroundColor: 'lightGray'}}>
+        <form onSubmit={this.handleSubmit}>
           <Grid
-            item
-            style={{ backgroundColor: 'gray' }}
-            sm={6}
-            xs={8}>
-            <VatNumbers
-              onChange={this.handleChange}
-              onBlur={this.handleBlur}
-              onEdit={this.handleEdit}
-              form={this.state.form}
-              isValid={isValid}
-              isTouched={isTouched}
-              isDisabled={isDisabled}
-            />
-          </Grid>
-          <Grid
-            item
-            style={{ backgroundColor: 'gray'}}
-            sm={6}
-            xs={8}>
-            <DateTimeReason
-              onChange={this.handleChange}
-              form={this.state.form}
-              onAddDateTimeReason={this.addDateTimeReason}
-              reasons={reasons}
-              classes={classes}
-            />
-          </Grid>
+            container
+            direction="column"
+            justify="space-evenly"
+            spacing={8}
+            style={{
+              // backgroundColor: 'white',
+              padding: '1rem',
+              // borderRadius: '5px',
+              marginTop: '1rem',
+            }}>
+            <Grid item>
+              <VatNumbers
+                onChange={this.handleChange}
+                onBlur={this.handleBlur}
+                onEdit={this.handleEdit}
+                form={this.state.form}
+                isValid={isValid}
+                isTouched={isTouched}
+                isDisabled={isDisabled}
+              />
+            </Grid>
+            <Grid item>
+              <DateTimeReason
+                onChange={this.handleChange}
+                form={this.state.form}
+                onAddDateTimeReason={this.addDateTimeReason}
+                reasons={reasons}
+                classes={classes}
+              />
+            </Grid>
 
-          <Grid item style={{ backgroundColor: 'gray'}} sm={6} xs={8}>
-            <DateTimeReasonCollection
-              dtrArray={this.state.dateTimeReason}
-              onChipClick={this.handleChipClick}
-              onChipDelete={this.handleChipDelete}
-              popper={this.state.popper}
-              onPopperClose={this.handlePopperClose}
-              snackbar={this.state.snackbar}
-              onSnackbarClose={this.handleSnackbarClose}
-              onUndoChipDelete={this.handleUndoChipDelete}
-            />
+            <Grid item>
+              <DateTimeReasonCollection
+                dtrArray={this.state.dateTimeReason}
+                onChipClick={this.handleChipClick}
+                onChipDelete={this.handleChipDelete}
+                popper={this.state.popper}
+                onPopperClose={this.handlePopperClose}
+                snackbar={this.state.snackbar}
+                onSnackbarClose={this.handleSnackbarClose}
+                onUndoChipDelete={this.handleUndoChipDelete}
+              />
+            </Grid>
+            <Grid item>
+              <Displayer
+                erganiCode={e4parser(
+                  this.state.form,
+                  this.state.dateTimeReason
+                )}
+                style={{ padding: '10%' }}
+              />
+            </Grid>
+            <Grid item style={{ marginLeft: 'auto' }}>
+              <Button variant="outlined" type="submit">
+                Αποστολη Μηνυματος
+              </Button>
+            </Grid>
           </Grid>
-          <Grid
-            item
-            style={{ backgroundColor: 'gray'}}
-            sm={6}
-            xs={8}
-            >
-            <Displayer
-              erganiCode={e4parser(this.state.form, this.state.dateTimeReason)}
-            />
-          </Grid>
-          <Grid item style={{ marginLeft: 'auto', marginTop: 'auto', backgroundColor: 'gray' }}>
-            <Button variant="outlined" type="submit">
-              Αποστολη Μηνυματος
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
+        </form>
     )
   }
 }
