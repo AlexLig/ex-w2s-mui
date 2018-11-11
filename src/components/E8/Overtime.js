@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { TextField, InputAdornment, IconButton, FormControl, RadioGroup, FormLabel, FormControlLabel, Radio } from '@material-ui/core'
+import { TextField, InputAdornment, IconButton, FormControl, RadioGroup, FormLabel, FormControlLabel, Radio, Grid } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import NumberFormat from 'react-number-format'
 
@@ -27,8 +27,9 @@ const Overtime = props => {
   const { onChange, onChangeOvertimeHours, onEdit, onBlur, isDisabled } = props
 
   return (
-    <Fragment>
 
+    <Grid container justify="space-between" alignItems="center" >
+    <Grid item xs={6}>
       <FormControl component="fieldset" >
         <FormLabel component="legend">Ώρες υπερωρίας</FormLabel>
         <RadioGroup
@@ -43,7 +44,8 @@ const Overtime = props => {
           <FormControlLabel value="500" control={<Radio />} label="5 ώρες" />
         </RadioGroup>
       </FormControl>
-
+      </Grid>
+      <Grid item xs={6}>
       <TextField
         label="Ώρα Έναρξης"
         value={props.form.startHour}
@@ -64,7 +66,6 @@ const Overtime = props => {
           ) : null,
         }}
       />
-
       <TextField
         label="Ώρα Λήξης"
         value={props.form.finishHour}
@@ -85,7 +86,9 @@ const Overtime = props => {
           ) : null,
         }}
       />
-    </Fragment>
+      </Grid>
+    </Grid>
+
   )
 }
 

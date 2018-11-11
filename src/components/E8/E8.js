@@ -136,7 +136,7 @@ class E8 extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <Grid container direction="column" justify="center" alignItems="center" spacing={40}>
-          <Grid item  sm={6} xs={8}>
+          <Grid item sm={6} xs={8}>
             <VatNumbers
               onChange={this.handleChange}
               onBlur={this.handleBlur}
@@ -147,7 +147,7 @@ class E8 extends Component {
               isDisabled={isDisabled}
             />
           </Grid>
-          <Grid item  sm={6} xs={8}>
+          <Grid item sm={6} xs={8}>
             <Overtime
               onChange={this.handleChange}
               onChangeOvertimeHours={this.handleChangeOvertimeHours}
@@ -157,10 +157,12 @@ class E8 extends Component {
               isDisabled={this.state.isDisabled} />
           </Grid>
 
-          <Grid item  sm={6} xs={8}>
+          <Grid item sm={6} xs={8}>
             <Displayer
-            erganiCode={e8parser(this.state.form)}
+              erganiCode={e8parser(this.state.form)}
             />
+          </Grid>
+          <Grid item sm={6} xs={8}>
             <Button variant="outlined" type="submit">
               Αποστολη Μηνυματος
             </Button>
