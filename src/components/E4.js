@@ -5,19 +5,10 @@ import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
 import DateTimeReasonCollection from './DateTimeReasonCollection'
 import e4parser from '../e4parser'
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import withStyles from '@material-ui/core/styles/withStyles'
 import validate from '../utils/validate'
-
-const isValidVnum = (fieldValue, fieldName) => {
-  const rules = {
-    afmEmployer: 9,
-    ameEmployer: 10,
-    afmEmployee: 9,
-  }
-  return fieldValue.length === rules[fieldName] && !isNaN(fieldValue)
-}
 
 const styles = theme => ({
   chip: {
@@ -76,20 +67,27 @@ class E4 extends React.Component {
       content: null,
     },
   }
-  rules = {
-    afmEmployer: 9,
-    ameEmployer: 10,
-    afmEmployee: 9,
-  }
+  // rules = {
+  //   afmEmployer: 9,
+  //   ameEmployer: 10,
+  //   afmEmployee: 9,
+  // }
 
   validate = name => {
+    const lengths = {
+      afmEmployer: 9,
+      ameEmployer: 10,
+      afmEmployee: 9,
+    }
     const fieldValue = this.state.form[name]
-    this.setState({
+    const rules = [fieldValue.length === lengths[name], !isNaN(fieldValue)]
+
+    this.setState(prevState => ({
       isValid: {
-        ...this.state.isValid,
-        [name]: isValidVnum(fieldValue, name),
+        ...prevState.isValid,
+        [name]: validate(rules),
       },
-    })
+    }))
   }
 
   shouldDisable = name => {
@@ -103,27 +101,29 @@ class E4 extends React.Component {
   }
   addDateTimeReason = () => {
     const { date, start, finish, isWork } = this.state.form
+    const { isValid } = this.state
 
-    const arrayOfTests = [this.state.isValid.afmEmployee, this.state.isValid.afmEmployer, this.state.isValid.ameEmployer]
-    const isValid = validate(arrayOfTests)
-    if (isValid) {
-      this.setState({
+    // const arrayOfVals = Object.values(isValid) //Works but ts-check throws error
+    const arrayOfValues = Object.keys(isValid).map(key => isValid[key])
+    const allIsValid = validate(arrayOfValues)
+
+    if (allIsValid) {
+      this.setState(prevState => ({
         dateTimeReason: [
-          ...this.state.dateTimeReason,
+          ...prevState.dateTimeReason,
           { date: date, start: start, finish: finish, isWork: isWork },
         ],
         form: {
-          ...this.state.form,
+          ...prevState.form,
           date: '221118',
           start: '0800',
           finish: '1500',
           isWork: !isWork,
         },
-      })
+      }))
     } else alert('invalid')
-
-
   }
+
   handleChange = name => ({ target: { value } }) => {
     if (name === 'isWork')
       this.setState({
@@ -227,12 +227,7 @@ class E4 extends React.Component {
     const classes = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        <Grid
-          container
-          direction="column"
-          justify="space-evenly"
-          spacing={8}
-          >
+        <Grid container direction="column" justify="space-evenly" spacing={8}>
           <Grid item>
             <VatNumbers
               onChange={this.handleChange}
