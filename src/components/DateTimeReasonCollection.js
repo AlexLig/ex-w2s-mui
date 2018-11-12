@@ -1,15 +1,13 @@
 import React from 'react'
-import {
-  Popover,
-  Typography,
-  Chip,
-  Avatar,
-  Snackbar,
-  Button,
-  IconButton,
-  Grid,
-} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
+import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 
 const DateTimeReasonCollection = props => {
   const {

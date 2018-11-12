@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { Button, withStyles, Grid } from '@material-ui/core'
+import React from 'react'
+import  Button  from '@material-ui/core/Button'
+import  withStyles  from '@material-ui/core/styles/withStyles'
+import  Grid  from '@material-ui/core/Grid'
 import Displayer from '../Displayer'
 import VatNumbers from '../VatNumbers'
 import e8parser from '../../e8parser'
@@ -27,7 +29,7 @@ const styles = theme => ({
 })
 
 
-class E8 extends Component {
+class E8 extends React.Component {
   state = {
     form: {
       afmEmployer: '',

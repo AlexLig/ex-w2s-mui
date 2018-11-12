@@ -1,5 +1,8 @@
 import React from 'react'
-import { Button, TextField, MenuItem, Grid } from '@material-ui/core'
+import  Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
+import Grid from '@material-ui/core/Grid'
 import NumberFormat from 'react-number-format'
 
 function DateFormat(props) {
@@ -43,7 +46,7 @@ function TimeFormat(props) {
 }
 
 const DateTimeReason = props => {
-  const { reasons, classes, onChange, onAddDateTimeReason } = props
+  const { reasons, onChange, onAddDateTimeReason } = props
 
   return (
       <Grid container justify="center" spacing={16} alignItems="center">

@@ -1,13 +1,11 @@
-import React, { Fragment } from 'react'
-import {
-  TextField,
-  InputAdornment,
-  IconButton,
-  Grid,
-  Divider,
-} from '@material-ui/core'
+import React from 'react'
+
 import EditIcon from '@material-ui/icons/Edit'
 import NumberFormat from 'react-number-format'
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 
 function AfmFormat(props) {
   const { onChange, ...other } = props

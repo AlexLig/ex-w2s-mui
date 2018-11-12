@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
-import { Button, withStyles, Grid, Paper } from '@material-ui/core'
+import React from 'react'
+
 import Displayer from './Displayer'
 import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
-import DateTimeForm from './DateTimeForm'
 import DateTimeReasonCollection from './DateTimeReasonCollection'
 import e4parser from '../e4parser'
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const isValidVnum = (fieldValue, fieldName) => {
   const rules = {
@@ -33,7 +35,7 @@ const reasons = [
   { key: 'Διάλειμμα', value: false },
 ]
 
-class E4 extends Component {
+class E4 extends React.Component {
   state = {
     form: {
       afmEmployer: '',

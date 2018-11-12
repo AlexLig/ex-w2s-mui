@@ -1,19 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import E4 from './components/E4'
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider'
-import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils'
-import {
-  Grid,
-  Paper,
-  MobileStepper,
-  Typography,
-  Button,
-  withStyles,
-} from '@material-ui/core'
+
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import SwipeableViews from 'react-swipeable-views'
+// import SwipeableViews from 'react-swipeable-views'
 import E8 from './components/E8/E8'
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const forms = [
   {
@@ -47,7 +44,7 @@ const styles = theme => ({
   },
 })
 
-class App extends Component {
+class App extends React.Component {
   state = {
     activeStep: 0,
   }

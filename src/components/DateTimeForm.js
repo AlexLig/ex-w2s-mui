@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import DatePicker from 'material-ui-pickers/DatePicker'
 import TimePicker from 'material-ui-pickers/TimePicker'
 import AccessTime from '@material-ui/icons/AccessTimeRounded'
-import { Button } from '@material-ui/core'
+import  Button  from '@material-ui/core/Button'
 import PropTypes from 'prop-types'
 
-class DateTimeForm extends Component {
+class DateTimeForm extends React.Component {
   state = {
     selectedDate: new Date(),
     startTime: new Date(),
