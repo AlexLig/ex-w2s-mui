@@ -67,13 +67,8 @@ class E4 extends React.Component {
       content: null,
     },
   }
-  // rules = {
-  //   afmEmployer: 9,
-  //   ameEmployer: 10,
-  //   afmEmployee: 9,
-  // }
 
-  validate = name => {
+  setIsValid = name => {
     const lengths = {
       afmEmployer: 9,
       ameEmployer: 10,
@@ -91,13 +86,13 @@ class E4 extends React.Component {
   }
 
   shouldDisable = name => {
-    this.validate(name)
-    this.setState({
+    this.setIsValid(name)
+    this.setState(prevState => ({
       isDisabled: {
-        ...this.state.isDisabled,
+        ...prevState.isDisabled,
         [name]: this.state.isValid[name],
       },
-    })
+    }))
   }
   addDateTimeReason = () => {
     const { date, start, finish, isWork } = this.state.form
@@ -125,57 +120,55 @@ class E4 extends React.Component {
   }
 
   handleChange = name => ({ target: { value } }) => {
-    if (name === 'isWork')
-      this.setState({
+    // Need '[name]: value.trim()' ? Mask already trims.
+    this.setState(
+      prevState => ({
         form: {
-          ...this.state.form,
+          ...prevState.form,
           [name]: value,
         },
-      })
-    else
-      this.setState(
-        {
-          form: {
-            ...this.state.form,
-            [name]: value.trim(),
-          },
-        },
-        () => this.validate(name)
-      )
+      }),
+      () => (name === 'isWork' ? null : this.setIsValid(name))
+    )
   }
+
   handleBlur = name => () => {
     this.setState(
-      {
+      prevState => ({
         isTouched: {
-          ...this.state.isTouched,
+          ...prevState.isTouched,
           [name]: true,
         },
-      },
+      }),
       () => this.shouldDisable(name)
     )
   }
+
   handleEdit = name => () => {
-    if (this.state.dateTimeReason.length > 0) {
-      this.setState({
-        dateTimeReason: [],
-        isDisabled: {
-          ...this.state.isDisabled,
-          [name]: false,
-        },
-      })
-    } else {
-      this.setState({
-        isDisabled: {
-          ...this.state.isDisabled,
-          [name]: false,
-        },
-      })
-    }
+    this.setState(prevState => {
+      if (prevState.dateTimeReason.length > 0)
+        return {
+          dateTimeReason: [],
+          isDisabled: {
+            ...prevState.isDisabled,
+            [name]: false,
+          },
+        }
+      else
+        return {
+          isDisabled: {
+            ...prevState.isDisabled,
+            [name]: false,
+          },
+        }
+    })
   }
+
   handleSubmit = event => {
     console.log(this.state.form)
     event.preventDefault()
   }
+
   handleChipClick = dtr => event => {
     this.setState({
       popper: {
@@ -185,6 +178,7 @@ class E4 extends React.Component {
       },
     })
   }
+
   handleChipDelete = (dtr, i) => () => {
     this.setState(prevState => {
       const dtrArray = prevState.dateTimeReason
@@ -201,6 +195,7 @@ class E4 extends React.Component {
       }
     })
   }
+
   handleUndoChipDelete = () => {
     this.setState(prevState => ({
       dateTimeReason: [
