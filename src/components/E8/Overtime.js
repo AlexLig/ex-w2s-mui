@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid'
 import EditIcon from '@material-ui/icons/Edit'
 import NumberFormat from 'react-number-format'
 import Button from '@material-ui/core/Button'
+import TimePicker from './TimePicker'
 
 function TimeFormat(props) {
   const { onChange, ...other } = props
@@ -32,7 +33,14 @@ function TimeFormat(props) {
   )
 }
 const Overtime = props => {
-  const { onChange, onChangeOvertimeHours, onEdit, onBlur, isDisabled, onDiscard } = props
+  const {
+    onChange,
+    onChangeOvertimeHours,
+    onEdit,
+    onBlur,
+    isDisabled,
+    onDiscard,
+  } = props
 
   return (
     <Grid container justify="space-between" alignItems="center">
@@ -43,11 +51,11 @@ const Overtime = props => {
             name="overtime hours"
             value={props.form.overtimeHours}
             onChange={onChangeOvertimeHours()}>
-            <FormControlLabel value="100" control={<Radio />} label="1 ώρα" />
-            <FormControlLabel value="200" control={<Radio />} label="2 ώρες" />
-            <FormControlLabel value="300" control={<Radio />} label="3 ώρες" />
-            <FormControlLabel value="400" control={<Radio />} label="4 ώρες" />
-            <FormControlLabel value="500" control={<Radio />} label="5 ώρες" />
+            <FormControlLabel value="1" control={<Radio />} label="1 ώρα" />
+            <FormControlLabel value="2" control={<Radio />} label="2 ώρες" />
+            <FormControlLabel value="3" control={<Radio />} label="3 ώρες" />
+            <FormControlLabel value="4" control={<Radio />} label="4 ώρες" />
+            <FormControlLabel value="5" control={<Radio />} label="5 ώρες" />
           </RadioGroup>
         </FormControl>
       </Grid>
@@ -92,6 +100,7 @@ const Overtime = props => {
             ) : null,
           }}
         />
+        <TimePicker />
       </Grid>
       <Grid item xs={5}>
         <Button variant="extendedFab" color="secondary" onClick={onDiscard}>
