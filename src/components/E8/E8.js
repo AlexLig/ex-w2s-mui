@@ -1,11 +1,11 @@
 import React from 'react'
-import  Button  from '@material-ui/core/Button'
-import  withStyles  from '@material-ui/core/styles/withStyles'
-import  Grid  from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import withStyles from '@material-ui/core/styles/withStyles'
+import Grid from '@material-ui/core/Grid'
 import Displayer from '../Displayer'
 import VatNumbers from '../VatNumbers'
 import e8parser from '../../e8parser'
-import Overtime from './Overtime';
+import Overtime from './Overtime'
 
 const isValidVnum = (fieldValue, fieldName) => {
   const rules = {
@@ -27,7 +27,6 @@ const styles = theme => ({
     width: 200,
   },
 })
-
 
 class E8 extends React.Component {
   state = {
@@ -54,10 +53,8 @@ class E8 extends React.Component {
       ameEmployer: false,
       afmEmployee: false,
       startHour: true,
-      finishHour: true
+      finishHour: true,
     },
-
-
   }
 
   validate = name => {
@@ -80,13 +77,14 @@ class E8 extends React.Component {
     })
   }
   handleChange = name => ({ target: { value } }) => {
-    this.setState(
+    this.setState( prevState => (
       {
         form: {
-          ...this.state.form,
+          ...prevState.form,
+          // overtimeHours: name !== 'overtimeHours' ? prevState.overtimeHours : '' ,
           [name]: value.trim(),
         },
-      },
+      }),
       () => this.validate(name)
     )
   }
@@ -119,8 +117,8 @@ class E8 extends React.Component {
       form: {
         ...this.state.form,
         overtimeHours: value,
-        finishHour: parseInt(this.state.form.startHour) + parseInt(value)
-      }
+        finishHour: parseInt(this.state.form.startHour) + parseInt(value),
+      },
     })
   }
   handleOvertimeBlur = name => () => {
@@ -130,6 +128,17 @@ class E8 extends React.Component {
         [name]: true,
       },
     })
+  }
+
+  handleDiscard = () => {
+    this.setState(prevState => ({
+      form: {
+        ...prevState.form,
+        overtimeHours: '',
+        startHour: '0000',
+        finishHour: '0000',
+      },
+    }))
   }
 
   render() {
@@ -156,14 +165,15 @@ class E8 extends React.Component {
               onEdit={this.handleEdit}
               onBlur={this.handleOvertimeBlur}
               form={this.state.form}
-              isDisabled={this.state.isDisabled} />
+              isDisabled={this.state.isDisabled}
+              onDiscard={this.handleDiscard}
+            />
           </Grid>
 
           <Grid item>
             <Displayer
               erganiCode={e8parser(this.state.form)}
               style={{ padding: '10%' }}
-
             />
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>

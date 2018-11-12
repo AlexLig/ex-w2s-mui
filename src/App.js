@@ -3,7 +3,6 @@ import E4 from './components/E4'
 
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-// import SwipeableViews from 'react-swipeable-views'
 import E8 from './components/E8/E8'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -18,7 +17,7 @@ const forms = [
     form: <E8 />,
   },
   {
-    label: 'Ε4 - Συμπληρωματικής Ωραρίου',
+    label: 'Ε4 - Συμπληρωματικός Ωραρίου - Ατομικός',
     form: <E4 />,
   },
 ]
@@ -88,7 +87,7 @@ class App extends React.Component {
                   size="small"
                   onClick={this.handleNext}
                   disabled={activeStep === maxSteps - 1}>
-                  Next
+                  Ε4
                   {theme.direction === 'rtl' ? (
                     <KeyboardArrowLeft />
                   ) : (
@@ -106,7 +105,7 @@ class App extends React.Component {
                   ) : (
                     <KeyboardArrowLeft />
                   )}
-                  Back
+                  Ε8
                 </Button>
               }
             />
