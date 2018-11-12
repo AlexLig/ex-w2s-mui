@@ -8,6 +8,7 @@ import e4parser from '../e4parser'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import validate from '../utils/validate'
 
 const isValidVnum = (fieldValue, fieldName) => {
   const rules = {
@@ -102,19 +103,26 @@ class E4 extends React.Component {
   }
   addDateTimeReason = () => {
     const { date, start, finish, isWork } = this.state.form
-    this.setState({
-      dateTimeReason: [
-        ...this.state.dateTimeReason,
-        { date: date, start: start, finish: finish, isWork: isWork },
-      ],
-      form: {
-        ...this.state.form,
-        date: '221118',
-        start: '0800',
-        finish: '1500',
-        isWork: !isWork,
-      },
-    })
+
+    const arrayOfTests = [this.state.isValid.afmEmployee, this.state.isValid.afmEmployer, this.state.isValid.ameEmployer]
+    const isValid = validate(arrayOfTests)
+    if (isValid) {
+      this.setState({
+        dateTimeReason: [
+          ...this.state.dateTimeReason,
+          { date: date, start: start, finish: finish, isWork: isWork },
+        ],
+        form: {
+          ...this.state.form,
+          date: '221118',
+          start: '0800',
+          finish: '1500',
+          isWork: !isWork,
+        },
+      })
+    } else alert('invalid')
+
+
   }
   handleChange = name => ({ target: { value } }) => {
     if (name === 'isWork')
