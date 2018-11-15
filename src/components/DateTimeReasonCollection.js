@@ -1,13 +1,13 @@
 import React from 'react'
 import CloseIcon from '@material-ui/icons/Close'
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Chip from '@material-ui/core/Chip';
-import Avatar from '@material-ui/core/Avatar';
-import Snackbar from '@material-ui/core/Snackbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import Popover from '@material-ui/core/Popover'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Chip from '@material-ui/core/Chip'
+import Avatar from '@material-ui/core/Avatar'
+import Snackbar from '@material-ui/core/Snackbar'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
 
 const DateTimeReasonCollection = props => {
   const {
@@ -46,6 +46,7 @@ const DateTimeReasonCollection = props => {
             <Chip
               avatar={<Avatar>{dtr.isWork ? 'Α' : 'Δ'}</Avatar>}
               // className={classes.chip}
+              // key={dtr.id} //TODO: Remember to use ID. Date.now() or shortid module
               label={`${dtr.date}, ${dtr.start} - ${dtr.finish}`}
               clickable
               color={dtr.isWork ? 'primary' : 'secondary'}

@@ -5,9 +5,9 @@ import VatNumbers from './VatNumbers'
 import DateTimeReason from './DateTimeReason'
 import DateTimeReasonCollection from './DateTimeReasonCollection'
 import e4parser from '../e4parser'
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import withStyles from '@material-ui/core/styles/withStyles'
 import validate from '../utils/validate'
 
 const isValidVnum = (fieldValue, fieldName) => {
@@ -104,7 +104,11 @@ class E4 extends React.Component {
   addDateTimeReason = () => {
     const { date, start, finish, isWork } = this.state.form
 
-    const arrayOfTests = [this.state.isValid.afmEmployee, this.state.isValid.afmEmployer, this.state.isValid.ameEmployer]
+    const arrayOfTests = [
+      this.state.isValid.afmEmployee,
+      this.state.isValid.afmEmployer,
+      this.state.isValid.ameEmployer,
+    ]
     const isValid = validate(arrayOfTests)
     if (isValid) {
       this.setState({
@@ -121,18 +125,17 @@ class E4 extends React.Component {
         },
       })
     } else alert('invalid')
-
-
   }
   handleChange = name => ({ target: { value } }) => {
-    if (name === 'isWork')
+    // TODO: Replace with this.handleSubmit.
+    if (name === 'isWork') {
       this.setState({
         form: {
           ...this.state.form,
           [name]: value,
         },
       })
-    else
+    } else {
       this.setState(
         {
           form: {
@@ -142,6 +145,7 @@ class E4 extends React.Component {
         },
         () => this.validate(name)
       )
+    }
   }
   handleBlur = name => () => {
     this.setState(
@@ -227,12 +231,7 @@ class E4 extends React.Component {
     const classes = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        <Grid
-          container
-          direction="column"
-          justify="space-evenly"
-          spacing={8}
-          >
+        <Grid container direction="column" justify="space-evenly" spacing={8}>
           <Grid item>
             <VatNumbers
               onChange={this.handleChange}
