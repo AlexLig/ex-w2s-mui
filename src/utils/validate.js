@@ -1,3 +1,5 @@
-const validate = arrayOfTests => arrayOfTests.reduce((sum, currentValue) => sum && currentValue)
+const validate = arrayOfTests => arrayOfTests.reduce(reducer, true)
+
+const reducer = (sum, currentValue) => sum && currentValue
 
 export default validate
