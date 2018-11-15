@@ -1,5 +1,5 @@
-const validate = arrayOfTests => arrayOfTests.reduce(reducer, true)
+const reduceWith = reducer => arrayOfTests => arrayOfTests.reduce(reducer, true)
+const logicalAndReducer = (sum, currentValue) => sum && currentValue
+const reduceWithAnd = reduceWith(logicalAndReducer)
 
-const reducer = (sum, currentValue) => sum && currentValue
-
-export default validate
+export default reduceWithAnd
