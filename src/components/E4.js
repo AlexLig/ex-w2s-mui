@@ -121,6 +121,7 @@ class E4 extends React.Component {
 
   handleChange = name => ({ target: { value } }) => {
     // Need '[name]: value.trim()' ? Mask already trims.
+    // TODO: Replace following code with this.handleSubmit() and use refs for date inputs.
     this.setState(
       prevState => ({
         form: {
@@ -128,7 +129,7 @@ class E4 extends React.Component {
           [name]: value,
         },
       }),
-      () => (name === 'isWork' ? null : this.setIsValid(name))
+      () => name !== 'isWork' && this.setIsValid(name)
     )
   }
 
@@ -154,13 +155,12 @@ class E4 extends React.Component {
             [name]: false,
           },
         }
-      else
-        return {
-          isDisabled: {
-            ...prevState.isDisabled,
-            [name]: false,
-          },
-        }
+      return {
+        isDisabled: {
+          ...prevState.isDisabled,
+          [name]: false,
+        },
+      }
     })
   }
 
