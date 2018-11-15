@@ -8,7 +8,7 @@ import e4parser from '../e4parser'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import withStyles from '@material-ui/core/styles/withStyles'
-import validate from '../utils/validate'
+import assert from '../utils/assert'
 
 const styles = theme => ({
   chip: {
@@ -68,7 +68,7 @@ class E4 extends React.Component {
     },
   }
 
-  setIsValid = name => {
+  validate = name => {
     const lengths = {
       afmEmployer: 9,
       ameEmployer: 10,
@@ -77,16 +77,19 @@ class E4 extends React.Component {
     const fieldValue = this.state.form[name]
     const rules = [fieldValue.length === lengths[name], !isNaN(fieldValue)]
 
+    // TODO: Ideally remove isValid state and simply return assert(rules)
     this.setState(prevState => ({
       isValid: {
         ...prevState.isValid,
-        [name]: validate(rules),
+        [name]: assert(rules),
       },
     }))
+
+    return assert(rules)
   }
 
   shouldDisable = name => {
-    this.setIsValid(name)
+    this.validate(name)
     this.setState(prevState => ({
       isDisabled: {
         ...prevState.isDisabled,
@@ -100,7 +103,7 @@ class E4 extends React.Component {
 
     // const arrayOfVals = Object.values(isValid) //Works but ts-check throws error
     const arrayOfValues = Object.keys(isValid).map(key => isValid[key])
-    const allIsValid = validate(arrayOfValues)
+    const allIsValid = assert(arrayOfValues)
 
     if (allIsValid) {
       this.setState(prevState => ({
@@ -129,7 +132,7 @@ class E4 extends React.Component {
           [name]: value,
         },
       }),
-      () => name !== 'isWork' && this.setIsValid(name)
+      () => name !== 'isWork' && this.validate(name)
     )
   }
 
